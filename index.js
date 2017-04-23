@@ -6,7 +6,6 @@ const http = require('http')
 const routes = require('patterns')()
 const st = require('st')
 
-
 // serve static files in public directory
 const staticDir = st({
   path: `${__dirname}/public`,
