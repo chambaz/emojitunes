@@ -1,6 +1,6 @@
 # EmojiTunes
 
-Get Spotify recommendations from emojis.
+Get Spotify recommendations from emojis - [emojitunes.io](https://emojitunes.io)
 
 **Installation**
 
