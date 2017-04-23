@@ -1,0 +1,20 @@
+.Footer {
+  padding: 1.25em 0 2.5em;
+}
+
+.Footer__body {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.Footer__heart {
+  margin: 0 .625em 0 .3125em;
+  transform: translateY(2px);
+}
+
+.Footer__img {
+  display: block;
+  margin-left: .625em;
+  transform: translateY(4px);
+}

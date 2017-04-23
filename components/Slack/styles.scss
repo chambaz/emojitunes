@@ -1,0 +1,150 @@
+@keyframes show-msg-first {
+  0% {
+    opacity: 0;
+    transform: scale(1) translateX(-50%) translateY(-50%);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale(1.2) translateX(-50%) translateY(-50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(-50%) translateY(-50%);
+  }
+}
+
+@keyframes show-msg-first-2 {
+  0% {
+    left: 50%;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  100% {
+    left: 0;
+    opacity: 1;
+    transform: translateX(0) translateY(-50%);
+  }
+}
+
+@keyframes show-msg-second {
+  0% {
+    opacity: 0;
+    transform: scale(1) translateY(-50%);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale(1.2) translateY(-50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(-50%);
+  }
+}
+
+.Slack {
+  color: #2c2d30;
+  display: none;
+  font-weight: 400;
+  height: 13.75em;
+  position: relative;
+  text-align: left;
+
+  @media(min-width: $medium-screen) {
+    display: block;
+  }
+}
+
+.Slack__row {
+  align-self: flex-start;
+  background: $white;
+  border-radius: 4px;
+  display: flex;
+  max-height: 180px;
+  opacity: 0;
+  padding: .9em 1em .8em;
+  position: absolute;
+  top: 50%;
+  transition: .3s;
+  width: 49%;
+}
+
+.Slack__row--first {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Slack__row--second {
+  left: 51%;
+}
+
+.Slack__row--first-animate {
+  animation: show-msg-first;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.75, -.5, 0, 1.75);
+}
+
+.Slack__row--first-animate-2 {
+  animation: show-msg-first-2;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.75, -.5, 0, 1.75);
+}
+
+.Slack__row--second-animate {
+  animation: show-msg-second;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.75, -.5, 0, 1.75);
+}
+
+.Slack__avatar {
+  align-items: center;
+  border-radius: 2px;
+  display: flex;
+  font-size: 40px;
+  height: 45px;
+  justify-content: center;
+  width: 45px;
+}
+
+.Slack__msg {
+  padding-left: .625em;
+}
+
+.Slack__header {
+  align-items: center;
+  display: flex;
+}
+
+.Slack__name {
+  font-size: .7em;
+  margin: 0;
+  text-transform: none;
+}
+
+.Slack__time {
+  font-size: .6em;
+  margin-left: 1em;
+}
+
+.Slack__body {
+  font-size: .7em;
+  margin: 0;
+  opacity: 0;
+}
+
+.Slow__msg-part {
+  opacity: 0;
+  transition: .15s;
+}
+
+.Slack__spotify {
+  margin-top: .625em;
+  width: 100%;
+}

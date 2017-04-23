@@ -1,0 +1,77 @@
+.Emoji-grid {
+  width: 100%;
+}
+
+.Emoji-grid__form {
+  background: rgba($black, .7);
+  margin: 0;
+  margin-bottom: 1em;
+  padding: 1em 0 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.Emoji-grid__search {
+  background: lighten($black, 3%);
+  border: solid 1px lighten($black, 7%);
+  color: $gray-light;
+  font-size: 1.4em;
+  outline: none;
+  padding: .5em;
+  width: 100%;
+
+  &::-webkit-input-placeholder {
+    color: $gray-dark;
+  }
+
+  &::-moz-placeholder {
+    color: $gray-dark;
+  }
+
+  &:-ms-input-placeholder {
+    color: $gray-dark;
+  }
+
+  &:-moz-placeholder {
+    color: $gray-light;
+  }
+
+  @media(min-width: $medium-screen) {
+    font-size: 2em;
+  }
+}
+
+.Emoji-grid__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Emoji-grid__item {
+  cursor: pointer;
+  display: block;
+  font-size: 1.5em;
+  padding: .5em;
+  text-align: center;
+  width: 14%;
+
+  @media(min-width: $medium-screen) {
+    width: 10%;
+  }
+
+  @media(min-width: $large-screen) {
+    width: 8%;
+  }
+
+  @media(min-width: $max-width) {
+    width: 4%;
+  }
+}
+
+.Emoji-grid__item--hide {
+  display: none;
+}

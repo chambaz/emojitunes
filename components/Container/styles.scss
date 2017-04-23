@@ -1,0 +1,30 @@
+.Container {
+  background: $black;
+  color: $white;
+  justify-content: center;
+  text-align: center;
+}
+
+.Container__inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25em;
+}
+
+.Container__intro,
+.Container__reccos {
+  transition: .3s;
+  width: 100%;
+}
+
+.Container__intro {
+  display: block;
+  opacity: 1;
+}
+
+.Container__reccos {
+  display: none;
+  opacity: 0;
+}

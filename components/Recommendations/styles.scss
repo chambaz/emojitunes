@@ -1,0 +1,28 @@
+.Recommendations__restart {
+  border-bottom: solid 1px $white;
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.2em;
+  margin-top: 1.25em;
+  padding-bottom: 5px;
+}
+
+.Recommendations__loading {
+  color: lighten($black, 10%);
+  font-size: 40px;
+  margin-top: calc(45vh - 3em);
+  text-transform: uppercase;
+}
+
+.Recommendations__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.25em;
+  width: 100%;
+}
+
+.Recommendations__item {
+  padding: .625em;
+}

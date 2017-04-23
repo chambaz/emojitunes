@@ -1,0 +1,23 @@
+@import './library/settings';
+@import './library/functions';
+@import './library/font-face';
+
+@import 'normalize.css';
+
+@import './base/elements';
+@import './base/fonts';
+@import './base/icons';
+@import './base/global';
+@import './base/z-index';
+
+
+// ==========================================================================
+// Components
+// ==========================================================================
+@import '../components/Container/styles';
+@import '../components/Header/styles';
+@import '../components/Footer/styles';
+@import '../components/Emoji-grid/styles';
+@import '../components/Body/styles';
+@import '../components/Slack/styles';
+@import '../components/Recommendations/styles';

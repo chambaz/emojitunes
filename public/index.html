@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+
+  <title>EmojiTunes Slackbot - Spotify recommendations from emojis</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet" />
+  <link rel="stylesheet" href="/dist/style.css" />
+
+  <meta name="description" content="Send emojis to the EmojiTunes Slackbot and get Spotify recommendations back." />
+  <meta name="author" content="Adam Chambers @chambaz" />
+
+  <meta property="og:url" content="https://emojitunes.io" />
+  <meta property="og:title" content="EmojiTunes Slackbot" />
+  <meta property="og:description" content="Send emojis to the EmojiTunes Slackbot and get Spotify recommendations back." />
+  <meta property="og:image" content="https://emojitunes.io/img/emojitunes-share-large.jpg" />
+
+  <meta itemprop="name" content="EmojiTunes Slackbot" />
+  <meta itemprop="description" content="Send emojis to the EmojiTunes Slackbot and get Spotify recommendations back." />
+  <meta itemprop="image" content="https://emojitunes.io/img/emojitunes-share-large.jpg" />
+
+  <link rel="canonical" href="https://emojitunes.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="EmojiTunes Slackbot" />
+  <meta name="twitter:description" content="Send emojis to the EmojiTunes Slackbot and get Spotify recommendations back." />
+  <meta name="twitter:image" content="https://emojitunes.io/img/emojitunes-share-small.jpg" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#68ca66">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+  <main class="Container">
+    <div class="Container__inner">
+      <header class="Header">
+        <h1 class="Header__title">
+          <img class="Header__emoji" src="/img/emojitunes.svg" />
+          Emojitunes
+          <img class="Header__emoji" src="/img/emojitunes.svg" />
+        </h1>
+      </header>
+
+      <div class="Container__intro" data-step="1">
+        <div class="Body">
+          <p class="Body__description">
+            🔥 Get Spotify recommendations from a simple emoji 🔥  <br class="Body__break" />
+            Install the Slack Bot 🤖 or pick an emoji from below 👇
+          </p>
+
+          <a
+            href="https://slack.com/oauth/authorize?&client_id=2342865809.159362311653&scope=bot"
+            class="Body__slack-btn">
+            <img
+              alt="Add to Slack"
+              height="40"
+              width="139"
+              src="https://platform.slack-edge.com/img/add_to_slack.png"
+              srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+            />
+          </a>
+
+          <div class="Slack">
+            <div class="Slack__row Slack__row--first" data-slack-msg>
+              <img class="Slack__avatar" src="/img/avatar.jpg" />
+              <div class="Slack__msg">
+                <header class="Slack__header">
+                  <h3 class="Slack__name">Adam Chambers</h3>
+                  <time class="Slack__time">6:00 AM</time>
+                </header>
+                <p class="Slack__body" data-msg>Hey @emojitunes give me some</p>
+              </div>
+            </div>
+            <div class="Slack__row Slack__row--second" data-slack-msg>
+              <img class="Slack__avatar" src="/img/emojitunes.svg" />
+              <div class="Slack__msg">
+                <header class="Slack__header">
+                  <h3 class="Slack__name">emojitunes</h3>
+                  <time class="Slack__time">6:00 AM</time>
+                </header>
+                <p class="Slack__body" data-msg="random"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="Emoji-grid" data-emoji-grid>
+          <form class="Emoji-grid__form">
+            <input
+              class="Emoji-grid__search"
+              data-search
+              type="search"
+              placeholder="Search emojis..."
+              autofocus
+              />
+          </form>
+        </div>
+      </div>
+
+      <div class="Container__reccos" data-step="2">
+        <div class="Recommendations">
+          <a class="Recommendations__restart" data-restart>✋ Try a different emoji?</a>
+          <div class="Recommendations__grid" data-reccos>
+            <p class="Recommendations__loading">Fetching tunes...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="Footer">
+      <p class="Footer__body">
+        Made with <span class="Footer__heart">❤️</span> at
+        <a class="Footer__img" href="https://www.digitalsurgeons.com">
+          <img src="/img/digitalsurgeons.png" />
+        </a>
+      </p>
+    </footer>
+  </main>
+
+  <script src="/dist/vendor.js"></script>
+  <script src="/dist/bundle.js"></script>
+</body>
+</html>
