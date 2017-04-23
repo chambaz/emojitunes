@@ -1,3 +1,5 @@
+#!/usr/bin/env nodejs
+
 // require config, http, routing modules
 const config = require('./config')
 const http = require('http')
