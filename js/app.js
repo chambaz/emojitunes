@@ -15,7 +15,7 @@ new EmojiGrid({
   restart: '[data-restart]'
 })
 
-new Slack({
-  msgs: '[data-slack-msg]',
-  randomMsgs: '[data-msg="random"]'
-})
+// new Slack({
+//   msgs: '[data-slack-msg]',
+//   randomMsgs: '[data-msg="random"]'
+// })

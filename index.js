@@ -103,7 +103,7 @@ routes.add('GET /api/recommendations-browser/{emoji}', (req, res) => {
 						style="border: 0;"
 						allowtransparency="true">
 				</iframe>
-			`)
+      `)
     })
 
 		// render flex box grid of iframes with title of comma separated genres
@@ -161,9 +161,47 @@ server.listen(8080, () => {
   console.log('🤘 Server is running 🤘')
 })
 
+function getRecommendations(emoji) {
+  let q = ''
+
+  // loop through emojis object
+  _.forOwn(genres, (keyword, emoji) => {
+		q = keyword
+  })
+
+  // return promise and wait for Spotify API call
+  return new Promise((resolve, reject) => {
+    if (!q) {
+      reject({
+        'error': 'No genres match emoji'
+      })
+    }
+
+		// fetch recommendations from spotify using shuffle genres found above
+    spotifyApi.searchPlaylists(q).then(data => {
+      const tracks = []
+
+      console.log(data.body.playlists)
+
+			// loop through each track and add object containing artist, title, url
+      data.body.playlists.items.forEach(track => {
+        tracks.push({
+          url: track.uri
+        })
+      })
+
+			// resolve promise and return shuffled genres and tracks
+      resolve({
+        genres: [],
+        tracks
+      })
+    })
+  })
+}
+
 // find genres matching emoji and fetch recommendations from Spotify
 // @params emoji e.g 🤘
-function getRecommendations(emoji) {
+function oldGetRecommendations(emoji) {
   const foundGenres = []
 
 	// loop through genres object

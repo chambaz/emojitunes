@@ -67,7 +67,7 @@ export default class Slack {
 
         const container = document.createElement('div')
         const html = `
-          <iframe class="Slack__spotify" src="https://embed.spotify.com/?uri=${json.tracks[0].url}"
+          <iframe class="Slack__spotify" src="https://embed.spotify.com/?uri=${json.tracks[0].url}&autoplay=1"
               width="300"
               height="190"
               frameborder="0"
