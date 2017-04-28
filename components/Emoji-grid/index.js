@@ -59,6 +59,7 @@ export default class Search {
 
   // fade out content and fetch recommendations from API
   getRecommendations(emo) {
+    console.log(emo)
     this.reccos.innerHTML = '<p class="Recommendations__loading">Fetching tunes...</p>'
     this.step1.style.opacity = 0
     setTimeout(() => {

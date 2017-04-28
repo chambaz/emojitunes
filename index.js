@@ -165,8 +165,10 @@ function getRecommendations(emoji) {
   let q = ''
 
   // loop through emojis object
-  _.forOwn(genres, (keyword, emoji) => {
-		q = keyword
+  _.forOwn(genres, (keyword, emo) => {
+    if (emoji === emo) {
+      q = keyword
+    }
   })
 
   // return promise and wait for Spotify API call

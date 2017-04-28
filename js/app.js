@@ -4,7 +4,7 @@ import 'babel-polyfill'
 // Components
 // ==========================================================================
 import EmojiGrid from '../components/Emoji-grid'
-import Slack from '../components/Slack'
+// import Slack from '../components/Slack'
 
 new EmojiGrid({
   step1: '[data-step="1"]',
