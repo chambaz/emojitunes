@@ -96,7 +96,7 @@ routes.add('GET /api/recommendations-browser/{emoji}', (req, res) => {
 		// loop through recommendations and build up array of iframes
     recommendations.tracks.forEach(track => {
       output.push(`
-				<iframe src="https://embed.spotify.com/?uri=${track.url}"
+				<iframe src="https://embed.spotify.com/?uri=${track.embed}"
 						width="300"
 						height="380
 						frameborder="0"
@@ -181,16 +181,19 @@ function getRecommendations(emoji) {
 
 		// fetch recommendations from spotify using shuffle genres found above
     spotifyApi.searchPlaylists(q).then(data => {
-      const tracks = []
+      let tracks = []
 
       console.log(data.body.playlists)
 
 			// loop through each track and add object containing artist, title, url
       data.body.playlists.items.forEach(track => {
         tracks.push({
-          url: track.uri
+          url: track.external_urls.spotify,
+          embed: track.uri
         })
       })
+
+      tracks = _.shuffle(tracks)
 
 			// resolve promise and return shuffled genres and tracks
       resolve({
