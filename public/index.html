@@ -36,49 +36,109 @@
 </head>
 <body>
 
-  <main class="Container">
-    <div class="Container__inner">
-      <header class="Header">
-        <h1 class="Header__title">
-          <img class="Header__emoji" src="/img/emojitunes.svg" />
-          Emojitunes
-          <img class="Header__emoji" src="/img/emojitunes.svg" />
+  <header class="Header">
+    <img class="Header__logo" src="" />
+
+    <a
+      class="Header__btn"
+      href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
+      <img
+        alt="Add to Slack"
+        height="40"
+        width="139"
+        src="https://platform.slack-edge.com/img/add_to_slack.png"
+        srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+      />
+    </a>
+  </header>
+
+  <section class="Masthead">
+    <div class="Masthead__inner">
+      <div class="Masthead__content">
+        <h1 class="Masthead__title">
+          Change the mood of a room with a single 🤘
         </h1>
-      </header>
-
-      <div class="Container__intro" data-step="1">
-        <div class="Emoji-grid" data-emoji-grid>
-          <form class="Emoji-grid__form">
-            <input
-              class="Emoji-grid__search"
-              data-search
-              type="search"
-              placeholder="Search emojis..."
-              autofocus
-              />
-          </form>
-        </div>
+        <p class="Masthead__body">
+          Emojitunes – fresh music served up to your team when you want it.
+        </p>
       </div>
-
-      <div class="Container__reccos" data-step="2">
-        <div class="Recommendations">
-          <a class="Recommendations__restart" data-restart>✋ Try a different emoji?</a>
-          <div class="Recommendations__grid" data-reccos>
-            <p class="Recommendations__loading">Fetching tunes...</p>
-          </div>
-        </div>
-      </div>
+      <ul class="Masthead__recommendations Masthead-recommendations">
+        <li class="Masthead-recommendations__item">
+          <img class="Masthead-recommendations__img" src="" />
+        </li>
+        <li class="Masthead-recommendations__item">
+          <img class="Masthead-recommendations__img" src="" />
+        </li>
+      </ul>
     </div>
+  </section>
 
-    <footer class="Footer">
-      <p class="Footer__body">
-        Made with <span class="Footer__heart">❤️</span> at
-        <a class="Footer__img" href="https://www.digitalsurgeons.com">
-          <img src="/img/digitalsurgeons.png" />
+  <section class="Panel Panel--split">
+    <div class="Panel__inner">
+      <div class="Panel__content">
+        <h1 class="Panel__title">
+          A new way to find the soundtrack for the moment.
+        </h1>
+        <h2 class="Panel__sub-title">
+          (...or become the office DJ!)
+        </h2>
+        <p class="Panel__body">
+          All you have to do is add emojitunes to slack, type an emoji and start rocking out!
+        </p>
+        <a
+          class="Panel__btn"
+          href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
+          <img
+            alt="Add to Slack"
+            height="40"
+            width="139"
+            src="https://platform.slack-edge.com/img/add_to_slack.png"
+            srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+          />
         </a>
+      </div>
+      <img class="Panel__img" src="" />
+    </div>
+  </section>
+
+  <section class="Emoji-grid" data-emoji-grid>
+    <div class="Emoji-grid__inner">
+      <h1 class="Emoji-grid__title">
+        Get a sample of how emojitunes works.
+      </h1>
+      <p class="Emoji-grid__body">
+        <a href="#">Guess my mood</a>
       </p>
-    </footer>
-  </main>
+    </div>
+  </section>
+
+  <section class="Panel">
+    <div class="Panel__inner">
+      <h1 class="Panel__title">
+        Emoji + Slack = Spotify Playlist 👍
+      </h1>
+      <a
+        class="Panel__btn"
+        href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
+        <img
+          alt="Add to Slack"
+          height="40"
+          width="139"
+          src="https://platform.slack-edge.com/img/add_to_slack.png"
+          srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+        />
+      </a>
+    </div>
+  </section>
+
+  <footer class="Footer">
+    <p class="Footer__body">
+      Made with <span class="Footer__heart">❤️</span> at
+      <a class="Footer__img" href="https://www.digitalsurgeons.com">
+        <img src="/img/digitalsurgeons.png" />
+      </a>
+    </p>
+  </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
