@@ -19,6 +19,10 @@
   transform: translateY(0);
 }
 
+.Header--top {
+  box-shadow: none;
+}
+
 .Header__btn {
   display: block;
   height: 2.5em;

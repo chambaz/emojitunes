@@ -24,7 +24,8 @@ $(function() {
     {
       classes: {
         pinned: 'Header--pinned',
-        unpinned: 'Header--unpinned'
+        unpinned: 'Header--unpinned',
+        top: 'Header--top'
       }
     }
   )
