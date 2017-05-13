@@ -1,45 +1,6 @@
 .Emoji-grid {
-  width: 100%;
-}
-
-.Emoji-grid__form {
-  background: rgba($black, .7);
-  margin: 0;
-  margin-bottom: 1em;
-  padding: 1em 0 0;
-  position: sticky;
-  top: 0;
-  width: 100%;
-}
-
-.Emoji-grid__search {
-  background: lighten($black, 3%);
-  border: solid 1px lighten($black, 7%);
-  color: $gray-light;
-  font-size: 1.4em;
-  outline: none;
-  padding: .5em;
-  width: 100%;
-
-  &::-webkit-input-placeholder {
-    color: $gray-dark;
-  }
-
-  &::-moz-placeholder {
-    color: $gray-dark;
-  }
-
-  &:-ms-input-placeholder {
-    color: $gray-dark;
-  }
-
-  &:-moz-placeholder {
-    color: $gray-light;
-  }
-
-  @media(min-width: $medium-screen) {
-    font-size: 2em;
-  }
+  padding-top: 215px;
+  text-align: center;
 }
 
 .Emoji-grid__list {
