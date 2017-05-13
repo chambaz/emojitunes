@@ -8,6 +8,7 @@
 .Masthead__inner {
   align-items: center;
   display: flex;
+  justify-content: flex-end;
   padding-left: 20px;
 
   @media(min-width: 1200px) {
@@ -31,9 +32,10 @@
 
 .Masthead-recommendations {
   display: flex;
+  justify-content: flex-end;
   margin: 0;
   padding: 0;
-  transform: translateX(10vw);
+  transform: translateX(100px);
   width: 60%;
 }
 
