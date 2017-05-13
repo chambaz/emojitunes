@@ -50,5 +50,6 @@
 }
 
 .Panel__img {
-  transform: translateY(6.5625em);
+  position: relative;
+  top: 6.5625em;
 }
