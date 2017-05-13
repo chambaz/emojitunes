@@ -1,39 +1,6 @@
 .Header {
-  padding: 1.25em;
-
-  @media(min-width: $medium-screen) {
-    padding: 0;
-  }
-}
-
-.Header__title {
   align-items: center;
-  color: $white;
   display: flex;
-  font-size: 1.875em;
-  height: 1.5em;
-  justify-content: center;
-  margin: 0;
-
-  @media(min-width: $medium-screen) {
-    font-size: 3.75em;
-  }
-}
-
-.Header__emoji {
-  display: inline-block;
-  position: relative;
-  width: 40px;
-
-  @media(min-width: $medium-screen) {
-    width: 80px;
-  }
-}
-
-.Header__emoji:first-child {
-  margin-right: 10px;
-}
-
-.Header__emoji:last-child {
-  margin-left: 10px;
+  justify-content: space-between;
+  padding: 10px 20px;
 }
