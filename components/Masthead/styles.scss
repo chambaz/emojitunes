@@ -1,0 +1,42 @@
+.Masthead {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 100px 0;
+}
+
+.Masthead__inner {
+  align-items: center;
+  display: flex;
+  padding-left: 20px;
+
+  @media(min-width: 1200px) {
+    padding-left: 0;
+    width: 90%;
+  }
+}
+
+.Masthead__content {
+  max-width: 460px;
+  width: 50%;
+}
+
+.Masthead__title {
+  font-size: 3.625em;
+}
+
+.Masthead__body {
+  width: 70%;
+}
+
+.Masthead-recommendations {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  transform: translateX(10vw);
+  width: 60%;
+}
+
+.Masthead-recommendations__item {
+  display: block;
+}
