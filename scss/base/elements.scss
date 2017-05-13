@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   background: $white;
   font-family: $base-font-family;
