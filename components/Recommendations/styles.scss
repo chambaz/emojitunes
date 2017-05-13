@@ -1,16 +1,16 @@
 .Recommendations__restart {
-  border-bottom: solid 1px $white;
+  border-bottom: solid .0625em $white;
   color: $white;
   cursor: pointer;
   display: inline-block;
   font-size: 1.2em;
   margin-top: 1.25em;
-  padding-bottom: 5px;
+  padding-bottom: .3125em;
 }
 
 .Recommendations__loading {
   color: lighten($black, 10%);
-  font-size: 40px;
+  font-size: 2.5em;
   margin-top: calc(45vh - 3em);
   text-transform: uppercase;
 }

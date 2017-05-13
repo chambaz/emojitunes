@@ -3,7 +3,7 @@
   background: $white;
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: .625em 1.25em;
   position: fixed;
   width: 100%;
   z-index: 2;
@@ -11,6 +11,6 @@
 
 .Header__btn {
   display: block;
-  height: 40px;
-  width: 139px;
+  height: 2.5em;
+  width: 8.6875em;
 }

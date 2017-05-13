@@ -64,7 +64,7 @@
   background: $white;
   border-radius: 4px;
   display: flex;
-  max-height: 180px;
+  max-height: 11.25em;
   opacity: 0;
   padding: .9em 1em .8em;
   position: absolute;
@@ -107,10 +107,10 @@
   align-items: center;
   border-radius: 2px;
   display: flex;
-  font-size: 40px;
-  height: 45px;
+  font-size: 2.5em;
+  height: 1.125em;
   justify-content: center;
-  width: 45px;
+  width: 1.125em;
 }
 
 .Slack__msg {

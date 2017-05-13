@@ -1,8 +1,8 @@
 .Panel--split {
   display: flex;
-  height: 630px;
+  height: 39.375em;
   justify-content: flex-end;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 1.25em;
 }
 
 .Panel--split .Panel__inner {
@@ -14,7 +14,7 @@
 .Panel--centered {
   align-items: center;
   display: flex;
-  height: 500px;
+  height: 31.25em;
   justify-content: center;
   text-align: center;
 }
@@ -35,20 +35,20 @@
 }
 
 .Panel__title {
-  margin-bottom: 20px;
+  margin-bottom: .555555556em;
 }
 
 .Panel__sub-title {
   color: #d1cfcf;
   font-style: italic;
-  margin-bottom: 20px;
+  margin-bottom: .909090909em;
 }
 
 .Panel__body {
-  margin: 40px 0;
+  margin: 2.5em 0;
   width: 80%;
 }
 
 .Panel__img {
-  transform: translateY(105px);
+  transform: translateY(6.5625em);
 }
