@@ -5,8 +5,18 @@
   justify-content: space-between;
   padding: .625em 1.25em;
   position: fixed;
+  transition: .3s;
   width: 100%;
   z-index: 2;
+}
+
+.Header--unpinned {
+  transform: translateY(-6.25em);
+}
+
+.Header--pinned {
+  box-shadow: 0 10px 30px 0 rgba(0, 0 , 0, .1);
+  transform: translateY(0);
 }
 
 .Header__btn {

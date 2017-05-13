@@ -5,6 +5,7 @@ import 'babel-polyfill'
 // ==========================================================================
 // import EmojiGrid from '../components/Emoji-grid'
 import Parallaxease from 'parallaxease'
+import Headroom from 'headroom.js'
 
 // new EmojiGrid({
 //   step1: '[data-step="1"]',
@@ -16,6 +17,20 @@ import Parallaxease from 'parallaxease'
 // })
 
 $(function() {
+
+  // init headroom
+  const headroom  = new Headroom(
+    document.querySelector('[data-headroom]'),
+    {
+      classes: {
+        pinned: 'Header--pinned',
+        unpinned: 'Header--unpinned'
+      }
+    }
+  )
+  headroom.init()
+
+  // init parallaxease
   new Parallaxease({
     breakpoint: '768px'
   })

@@ -1,3 +1,4 @@
 module.exports = [
-  'parallaxease'
+  'parallaxease',
+  'headroom.js'
 ]
