@@ -26,7 +26,7 @@ const _ = {
   difference: require('lodash/difference')
 }
 
-// object of genres, each with an array of emojis
+// object of emojis / keywords 
 const genres = require('./lib/genres')
 
 // fetch spotify access token

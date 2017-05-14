@@ -31,6 +31,12 @@
   width: 70%;
 }
 
+.Masthead__emoji {
+  display: inline-block;
+  position: relative;
+  transform: translate(-5px, 5px);
+}
+
 .Masthead-recommendations {
   display: flex;
   justify-content: flex-end;
