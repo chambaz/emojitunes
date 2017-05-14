@@ -47,5 +47,12 @@
 }
 
 .Masthead-recommendations__item {
+  box-shadow: 20px 20px 40px 0 rgba(0, 0, 0, .30);
   display: block;
+  height: 390px;
+  margin-right: 2.5em;
+}
+
+.Masthead-recommendations__item:last-child {
+  margin-right: 0;
 }
