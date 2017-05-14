@@ -37,6 +37,18 @@ spotifyApi.clientCredentialsGrant().then(data => {
   console.log('Error retrieving access token', error)
 })
 
+routes.add('GET /api/genres', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+
+  spotifyApi
+    .getAvailableGenreSeeds()
+    .then(data => {
+      res.end(JSON.stringify({
+        genres: data.body.genres
+      }))
+    })
+})
+
 // get recommendations API route
 // @params emoji e.g 🤘
 // @return JSON object containing genre and track arrays
