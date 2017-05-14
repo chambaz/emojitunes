@@ -18,10 +18,8 @@ export default class Masthead {
     $.get(`/api/recommendations/tracks/${emoji}`, data => {
       markup = data.items.slice(0, 2).map(item => {
         return `
-          <li class="Masthead-recommendations__item">
-            <div
-              class="Masthead-recommendations__embed"
-              data-parallax='{"y": -60}'>
+          <li class="Masthead-recommendations__item" data-parallax='{"y": -60}'>
+            <div class="Masthead-recommendations__embed">
               <iframe src="https://embed.spotify.com/?uri=${item.embed}"
       						width="315"
       						height="390
