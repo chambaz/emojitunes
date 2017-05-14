@@ -160,8 +160,6 @@ function getRecommendations(emoji) {
     spotifyApi.searchPlaylists(q).then(data => {
       let tracks = []
 
-      console.log(data.body.playlists)
-
 			// loop through each track and add object containing artist, title, url
       data.body.playlists.items.forEach(track => {
         tracks.push({
