@@ -7,7 +7,7 @@ export default class Search {
     // this.step2 = document.querySelector(opts.step2)
     this.grid = document.querySelector(opts.grid)
     // this.reccos = document.querySelector(opts.reccos)
-    // this.search = document.querySelector(opts.search)
+    this.search = document.querySelector(opts.search)
     // this.restart = document.querySelector(opts.restart)
     this.list = document.createElement('ul')
     this.availableEmojis = emojis.availableEmojis()
@@ -23,10 +23,10 @@ export default class Search {
     // this.restart.addEventListener('click', () => this.reset())
 
     // text input filter emojis
-    // this.search.addEventListener('keyup', e => this.filterEmojis(e))
+    this.search.addEventListener('keyup', e => this.filterEmojis(e))
 
     // keyboard nav
-    // document.addEventListener('keydown', e => this.keyboardNav(e))
+    document.addEventListener('keydown', e => this.keyboardNav(e))
   }
 
   // append li nodes to this.list

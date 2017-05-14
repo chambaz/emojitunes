@@ -1,6 +1,33 @@
 .Emoji-grid {
+  margin: 0 auto;
+  max-width: 50em;
   padding: 13.4375em 1.25em 10em;
   text-align: center;
+}
+
+.Emoji-grid__input {
+  background: $white;
+  border: 1px solid $gray-light;
+  border-radius: 2px;
+  font-size: 1.2em;
+  margin: 1.25em;
+  width: 100%;
+
+  &::-webkit-input-placeholder {
+    color: $gray-light;
+  }
+
+  &::-moz-placeholder {
+    color: $gray-light;
+  }
+
+  &:-ms-input-placeholder {
+    color: $gray-light;
+  }
+
+  &:-moz-placeholder {
+    color: $gray-light;
+  }
 }
 
 .Emoji-grid__list {
@@ -26,10 +53,6 @@
 
   @media(min-width: $large-screen) {
     width: 8%;
-  }
-
-  @media(min-width: $max-width) {
-    width: 4%;
   }
 }
 

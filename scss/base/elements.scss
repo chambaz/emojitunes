@@ -41,3 +41,15 @@ textarea {
   font-weight: 400;
   padding: .625em;
 }
+
+a,
+a:visited,
+a:active,
+a:focus {
+  color: $purple;
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+}
