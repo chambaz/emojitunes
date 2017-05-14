@@ -11,6 +11,22 @@ export default class Masthead {
 
     this.ui.emoji.innerHTML = this.randomEmoji[1]
     this.getRecommendations(this.randomEmoji[1])
+
+    setTimeout(() => this.animate(), 1000)
+  }
+
+  animate() {
+    $(this.ui.emoji).animate({
+      opacity: 1
+    }, 500, () => {
+      $(this.ui.reccos).find('[data-masthead-recco]').each(function(i) {
+        setTimeout(() => {
+          $(this).animate({
+            left: 0
+          }, 500)
+        }, i * 500)
+      })
+    })
   }
 
   getRecommendations(emoji) {
@@ -18,7 +34,10 @@ export default class Masthead {
     $.get(`/api/recommendations/tracks/${emoji}`, data => {
       markup = data.items.slice(0, 2).map(item => {
         return `
-          <li class="Masthead-recommendations__item" data-parallax='{"y": -60}'>
+          <li
+            class="Masthead-recommendations__item"
+            data-masthead-recco
+            data-parallax='{"y": -60}'>
             <div class="Masthead-recommendations__embed">
               <iframe src="https://embed.spotify.com/?uri=${item.embed}"
       						width="315"
