@@ -29,6 +29,9 @@ const _ = {
 // object of emojis / keywords
 const genres = require('./lib/genres')
 
+// possible response messages
+const msgs = require('./lib/msgs')
+
 // fetch spotify access token
 // clientCredentials method does not require user authentication
 spotifyApi.clientCredentialsGrant().then(data => {
@@ -38,7 +41,8 @@ spotifyApi.clientCredentialsGrant().then(data => {
 })
 
 // get recommendations API route
-// @params emoji e.g 🤘
+// @param type e.g 'tracks' 'playlists'
+// @param emoji e.g 🤘
 // @return JSON object containing genre and track arrays
 routes.add('GET /api/recommendations/{type}/{emoji}', (req, res) => {
   res.setHeader('Content-Type', 'application/json')
@@ -72,7 +76,10 @@ routes.add('GET /api/recommendations/{type}/{emoji}', (req, res) => {
 	)
 })
 
-// get recommendations and return grid of Spotify play button iframes
+// get recommendations-browser API route
+// @param type e.g 'tracks' 'playlists'
+// @param emoji e.g 🤘
+// @return grid of iframe embeds
 routes.add('GET /api/recommendations-browser/{type}/{emoji}', (req, res) => {
   res.setHeader('Content-Type', 'text/html')
 
@@ -128,6 +135,40 @@ routes.add('GET /api/recommendations-browser/{type}/{emoji}', (req, res) => {
     console.log('Error fetching recommendations', error)
     res.end('No genres match emoji')
   })
+})
+
+// get recommendations message
+// @params emoji e.g 🤘
+// @return JSON object containing genre and track arrays
+routes.add('GET /api/msgs/recommendation/{emoji}', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
+  res.end(JSON.stringify({
+    msg: msgs.getRecommendationMsg(decodeURIComponent(req.params.emoji))
+  }))
+})
+
+// get no results message
+// @return JSON object containing genre and track arrays
+routes.add('GET /api/msgs/no-results', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
+  res.end(JSON.stringify({
+    msg: msgs.getNoResultsMsg()
+  }))
+})
+
+// get no emoji message
+// @return JSON object containing genre and track arrays
+routes.add('GET /api/msgs/no-emoji', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
+  res.end(JSON.stringify({
+    msg: msgs.getNoEmojiMsg()
+  }))
 })
 
 // create server
