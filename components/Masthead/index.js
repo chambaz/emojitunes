@@ -5,12 +5,26 @@ export default class Masthead {
   constructor(opts) {
     // emoji and recommendation containers
     this.ui = {
-      emoji: document.querySelector(opts.emoji),
-      reccos: document.querySelector(opts.reccos)
+      steps: $(opts.steps),
+      emoji: $(opts.emoji),
+      reccos: $(opts.reccos)
     }
 
     // kick off animation
-    setTimeout(() => this.restartAnimation(), 1000)
+    setTimeout(() => this.intro(), 1000)
+  }
+
+  intro() {
+    this.ui.steps.each(function(i) {
+      setTimeout(() => {
+        $(this).animate({
+          opacity: 1
+        }, 350)
+      }, i * 200)
+    })
+
+    // kick off animation
+    this.restartAnimation()
   }
 
   // handle animating in and out
@@ -25,31 +39,31 @@ export default class Masthead {
   // fade in emoji and slide in reccomendations
   animateIn() {
     // fade in emoji
-    $(this.ui.emoji).animate({
+    this.ui.emoji.animate({
       opacity: 1
     }, 350, () => {
       // loop through recommendations and slide each in
       setTimeout(() => {
-        $(this.ui.reccos).find('[data-masthead-recco]').each(function(i) {
+        this.ui.reccos.find('[data-masthead-recco]').each(function(i) {
           setTimeout(() => {
             $(this).animate({
               left: 0
             }, 500, 'easeOutQuad')
           }, i * 200)
         })
-      }, 500)
+      }, 300)
     })
   }
 
   // fade out emoji and slide out recommendations
   animateOut() {
     // fade out emoji
-    $(this.ui.emoji).animate({
+    this.ui.emoji.animate({
       opacity: 0
     }, 350)
 
     // loop through reccomendations and slide each out
-    $(this.ui.reccos).find('[data-masthead-recco]').each(function(i) {
+    this.ui.reccos.find('[data-masthead-recco]').each(function(i) {
       setTimeout(() => {
         $(this).animate({
           left: '50vw'
@@ -59,15 +73,15 @@ export default class Masthead {
   }
 
   // grab new emoji / recommendations and restart animation cycle
-  restartAnimation() {
+  restartAnimation(delay = 500) {
     this.setEmojiAndRecommendations()
-    setTimeout(() => this.animate(), 500)
+    setTimeout(() => this.animate(), delay)
   }
 
   // grab new emoji and reccomendations
   setEmojiAndRecommendations() {
     const randomEmoji = this.randomEmoji(emojis.availableEmojis())
-    this.ui.emoji.innerHTML = randomEmoji[1]
+    this.ui.emoji.html(randomEmoji[1])
     this.getRecommendations(randomEmoji[1])
   }
 
@@ -100,7 +114,7 @@ export default class Masthead {
       })
 
       // add markup string to DOM
-      this.ui.reccos.innerHTML = markup.join('')
+      this.ui.reccos.html(markup.join(''))
     })
   }
 }

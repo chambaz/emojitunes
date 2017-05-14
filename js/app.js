@@ -22,6 +22,7 @@ $(function() {
 
   // init masthead
   new Masthead({
+    steps: '[data-step]',
     emoji: '[data-masthead-emoji]',
     reccos: '[data-masthead-reccos]'
   })
