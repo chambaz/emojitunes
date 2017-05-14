@@ -3,12 +3,12 @@ import emojis from '../../lib/emojis'
 
 export default class Search {
   constructor(opts) {
-    this.step1 = document.querySelector(opts.step1)
-    this.step2 = document.querySelector(opts.step2)
+    // this.step1 = document.querySelector(opts.step1)
+    // this.step2 = document.querySelector(opts.step2)
     this.grid = document.querySelector(opts.grid)
-    this.reccos = document.querySelector(opts.reccos)
-    this.search = document.querySelector(opts.search)
-    this.restart = document.querySelector(opts.restart)
+    // this.reccos = document.querySelector(opts.reccos)
+    // this.search = document.querySelector(opts.search)
+    // this.restart = document.querySelector(opts.restart)
     this.list = document.createElement('ul')
     this.availableEmojis = emojis.availableEmojis()
 
@@ -20,13 +20,13 @@ export default class Search {
     this.grid.appendChild(this.list)
 
     // restart after choosing emoji
-    this.restart.addEventListener('click', () => this.reset())
+    // this.restart.addEventListener('click', () => this.reset())
 
     // text input filter emojis
-    this.search.addEventListener('keyup', e => this.filterEmojis(e))
+    // this.search.addEventListener('keyup', e => this.filterEmojis(e))
 
     // keyboard nav
-    document.addEventListener('keydown', e => this.keyboardNav(e))
+    // document.addEventListener('keydown', e => this.keyboardNav(e))
   }
 
   // append li nodes to this.list

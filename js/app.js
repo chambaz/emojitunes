@@ -6,17 +6,17 @@ import 'babel-polyfill'
 import Parallaxease from 'parallaxease'
 import Headroom from 'headroom.js'
 
-// import EmojiGrid from '../components/Emoji-grid'
+import EmojiGrid from '../components/Emoji-grid'
 import Masthead from '../components/Masthead'
 
-// new EmojiGrid({
-//   step1: '[data-step="1"]',
-//   step2: '[data-step="2"]',
-//   grid: '[data-emoji-grid]',
-//   reccos: '[data-reccos]',
-//   search: '[data-search]',
-//   restart: '[data-restart]'
-// })
+new EmojiGrid({
+  step1: '[data-step="1"]',
+  step2: '[data-step="2"]',
+  grid: '[data-emoji-grid]',
+  reccos: '[data-reccos]',
+  search: '[data-search]',
+  restart: '[data-restart]'
+})
 
 $(function() {
 
