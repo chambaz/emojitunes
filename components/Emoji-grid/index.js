@@ -1,5 +1,6 @@
 import request from 'superagent'
-import emojis from '../../lib/emojis'
+import emoji from 'node-emoji'
+import genres from '../../lib/genres'
 
 export default class Search {
   constructor(opts) {
@@ -10,10 +11,9 @@ export default class Search {
     this.search = document.querySelector(opts.search)
     // this.restart = document.querySelector(opts.restart)
     this.list = document.createElement('ul')
-    this.availableEmojis = emojis.availableEmojis()
 
     // fill this.list with li nodes
-    this.availableEmojis.map((emo, i) => this.addEmojiNode(emo, i))
+    Object.keys(genres).map((emo, i) => this.addEmojiNode(emo, i))
 
     // add class to ul and append to DOM
     this.list.classList.add('Emoji-grid__list')
@@ -31,13 +31,13 @@ export default class Search {
 
   // append li nodes to this.list
   addEmojiNode(emo, i) {
+    const emojiDetails = genres[emo]
     const child = document.createElement('li')
-    let [emojiName, emojiCode] = emo
     child.classList.add('Emoji-grid__item')
-    child.setAttribute('data-emoji', emojiName)
+    child.setAttribute('data-emoji', `${emojiDetails.genre} ${emojiDetails.keyword} ${emoji.which(emo)}`)
     child.setAttribute('data-index', i)
     child.setAttribute('data-visible', 'true')
-    child.innerHTML = emojiCode
+    child.innerHTML = emo
     child.tabIndex = 0
     child.addEventListener('click', e => this.getRecommendations(e.currentTarget.innerHTML))
 
