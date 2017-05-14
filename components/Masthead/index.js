@@ -3,23 +3,32 @@ const emojis = require('../../lib/emojis')
 
 export default class Masthead {
   constructor(opts) {
+    // emoji and recommendation containers
     this.ui = {
       emoji: document.querySelector(opts.emoji),
       reccos: document.querySelector(opts.reccos)
     }
 
+    // kick off animation
     setTimeout(() => this.restartAnimation(), 1000)
   }
 
+  // handle animating in and out
   animate() {
     this.animateIn()
-    setTimeout(() => this.animateOut(), 5000)
+    setTimeout(() => {
+      this.animateOut()
+      setTimeout(() => this.restartAnimation(), 1000)
+    }, 5000)
   }
 
+  // fade in emoji and slide in reccomendations
   animateIn() {
+    // fade in emoji
     $(this.ui.emoji).animate({
       opacity: 1
     }, 350, () => {
+      // loop through recommendations and slide each in
       setTimeout(() => {
         $(this.ui.reccos).find('[data-masthead-recco]').each(function(i) {
           setTimeout(() => {
@@ -32,11 +41,14 @@ export default class Masthead {
     })
   }
 
+  // fade out emoji and slide out recommendations
   animateOut() {
+    // fade out emoji
     $(this.ui.emoji).animate({
       opacity: 0
     }, 350)
 
+    // loop through reccomendations and slide each out
     $(this.ui.reccos).find('[data-masthead-recco]').each(function(i) {
       setTimeout(() => {
         $(this).animate({
@@ -44,24 +56,31 @@ export default class Masthead {
         }, 500, 'easeInBack')
       }, i * 200)
     })
-
-    setTimeout(() => this.restartAnimation(), 1000)
   }
 
+  // grab new emoji / recommendations and restart animation cycle
   restartAnimation() {
     this.setEmojiAndRecommendations()
     setTimeout(() => this.animate(), 500)
   }
 
+  // grab new emoji and reccomendations
   setEmojiAndRecommendations() {
     const randomEmoji = this.randomEmoji(emojis.availableEmojis())
     this.ui.emoji.innerHTML = randomEmoji[1]
     this.getRecommendations(randomEmoji[1])
   }
 
+  // pick random emoji
+  randomEmoji(emojis) {
+    return emojis[Math.floor(Math.random() * (emojis.length -1))]
+  }
+
+  // get recommendations from API, build markup, add to DOM
   getRecommendations(emoji) {
     let markup = ''
     $.get(`/api/recommendations/tracks/${emoji}`, data => {
+      // build markup template string with first two recommendations returned
       markup = data.items.slice(0, 2).map(item => {
         return `
           <li
@@ -80,11 +99,8 @@ export default class Masthead {
         `
       })
 
+      // add markup string to DOM
       this.ui.reccos.innerHTML = markup.join('')
     })
-  }
-
-  randomEmoji(emojis) {
-    return emojis[Math.floor(Math.random() * (emojis.length -1))]
   }
 }
