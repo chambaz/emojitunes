@@ -9,6 +9,13 @@ export default class Masthead {
     }
 
     this.ui.emoji.innerHTML = this.randomEmoji[1]
+    this.getRecommendations(this.randomEmoji[1])
+  }
+
+  getRecommendations(emoji) {
+    $.get(`/api/recommendations/tracks/${emoji}`, data => {
+      console.log(data)
+    })
   }
 
   randomEmoji(emojis) {
