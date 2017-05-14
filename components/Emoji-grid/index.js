@@ -34,7 +34,7 @@ export default class Search {
     const emojiDetails = genres[emo]
     const child = document.createElement('li')
     child.classList.add('Emoji-grid__item')
-    child.setAttribute('data-emoji', `${emojiDetails.genre} ${emojiDetails.keyword} ${emoji.which(emo)}`)
+    child.setAttribute('data-emoji', `${emojiDetails.genre} ${emojiDetails.keyword} ${emoji.which(emo)} ${emo}`)
     child.setAttribute('data-index', i)
     child.setAttribute('data-visible', 'true')
     child.innerHTML = emo
