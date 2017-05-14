@@ -98,7 +98,7 @@ routes.add('GET /api/recommendations-browser/{type}/{emoji}', (req, res) => {
 
   getRecommendations(req.params.type, foundEmoji).then(recommendations => {
 		// no tracks found
-    if (!recommendations[req.params.type].length) {
+    if (!recommendations.items.length) {
       res.end('Nothing found 😞')
       return
     }
@@ -106,7 +106,7 @@ routes.add('GET /api/recommendations-browser/{type}/{emoji}', (req, res) => {
     const output = []
 
 		// loop through recommendations and build up array of iframes
-    recommendations[req.params.type].forEach(item => {
+    recommendations.items.forEach(item => {
       output.push(`
 				<iframe src="https://embed.spotify.com/?uri=${item.embed}"
 						width="300"
@@ -168,26 +168,51 @@ function getRecommendations(type, emoji) {
       })
     }
 
-    const method = type === 'tracks' ? 'searchTracks' : 'searchPlaylists'
+    let method = 'searchPlaylists'
+    let search = `genre:${q}`
 
-		// fetch recommendations from spotify using shuffle genres found above
-    spotifyApi[method](q).then(data => {
-      let tracks = []
+    if (type === 'tracks') {
+      method = 'searchTracks'
+    }
 
-			// loop through each track and add object containing artist, title, url
+		// try fetching recommendations by genre
+    spotifyApi[method](search).then(data => {
+      let items = []
+
+      // loop through each track and add object containing artist, title, url
       data.body[type].items.forEach(track => {
-        tracks.push({
+        items.push({
           url: track.external_urls.spotify,
           embed: track.uri
         })
       })
 
-      tracks = _.shuffle(tracks)
+      // if no items found then do keyword search instead
+      if (!items.length) {
+        spotifyApi[method](q).then(data => {
+          // loop through each track and add object containing artist, title, url
+          data.body[type].items.forEach(track => {
+            items.push({
+              url: track.external_urls.spotify,
+              embed: track.uri
+            })
+          })
 
-			// resolve promise and return shuffled genres and tracks
-      resolve({
-        tracks
-      })
+          // resolve promise and return shuffled genres and tracks
+          items = _.shuffle(items)
+          resolve({
+            items
+          })
+        })
+
+      // otherwise return genre reccos
+      } else {
+        // resolve promise and return shuffled genres and tracks
+        items = _.shuffle(items)
+        resolve({
+          items
+        })
+      }
     })
   })
 }
