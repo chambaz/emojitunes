@@ -151,12 +151,12 @@ server.listen(8080, () => {
 })
 
 function getRecommendations(type, emoji) {
-  let q = ''
+  let q = {}
 
   // loop through emojis object
-  _.forOwn(genres, (keyword, emo) => {
+  _.forOwn(genres, (emoData, emo) => {
     if (emoji === emo) {
-      q = keyword
+      q = emoData
     }
   })
 
@@ -168,8 +168,10 @@ function getRecommendations(type, emoji) {
       })
     }
 
+    console.log(q)
+
     let method = 'searchPlaylists'
-    let search = `genre:${q}`
+    let search = `genre:"${q.genre}"`
 
     if (type === 'tracks') {
       method = 'searchTracks'
@@ -189,7 +191,7 @@ function getRecommendations(type, emoji) {
 
       // if no items found then do keyword search instead
       if (!items.length) {
-        spotifyApi[method](q).then(data => {
+        spotifyApi[method](q.keyword).then(data => {
           // loop through each track and add object containing artist, title, url
           data.body[type].items.forEach(track => {
             items.push({
