@@ -57,11 +57,11 @@
   <section class="Masthead">
     <div class="Masthead__inner">
       <div class="Masthead__content">
-        <h1 class="Masthead__title" data-step>
+        <h1 class="Masthead__title" data-masthead-step>
           Change the mood of a room with a single
           <span class="Masthead__emoji" data-masthead-emoji></span>
         </h1>
-        <p class="Masthead__body" data-step>
+        <p class="Masthead__body" data-masthead-step>
           Emojitunes – fresh music served up to your team when you want it.
         </p>
       </div>
@@ -100,19 +100,29 @@
     </div>
   </section>
 
-  <section class="Emoji-grid" data-emoji-grid>
-    <div class="Emoji-grid__inner">
+  <section class="Emoji-grid">
+    <div class="Emoji-grid__inner Emoji-grid__inner--small" data-emoji-grid-step="1">
       <h1 class="Emoji-grid__title">
         Get a sample of how emojitunes works.
       </h1>
       <input
         class="Emoji-grid__input"
-        data-search
+        data-emoji-grid-search
         type="text"
         placeholder="What's your mood?" />
       <p class="Emoji-grid__body">
         <a href="#">Guess my mood</a>
       </p>
+      <div data-emoji-grid></div>
+    </div>
+
+    <div class="Emoji-grid__inner Emoji-grid__inner--hide" data-emoji-grid-step="2">
+      <h2 data-emoji-grid-title class="Emoji-grid__title"></h2>
+      <a data-emoji-grid-restart href="#">Try a different emoji</a>
+
+      <div class="Emoji-grid__reccos" data-emoji-grid-reccos>
+
+      </div>
     </div>
   </section>
 

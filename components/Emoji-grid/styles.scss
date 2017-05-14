@@ -1,8 +1,26 @@
 .Emoji-grid {
-  margin: 0 auto;
-  max-width: 50em;
-  padding: 13.4375em 1.25em 10em;
+  height: 750px;
+  padding: 1.25em;
+  position: relative;
   text-align: center;
+}
+
+.Emoji-grid__inner {
+  left: 50%;
+  margin: 0 auto;
+  max-width: 60em;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.Emoji-grid__inner--small {
+  max-width: 50em;
+}
+
+.Emoji-grid__inner--hide {
+  opacity: 0;
 }
 
 .Emoji-grid__input {
@@ -58,4 +76,15 @@
 
 .Emoji-grid__item--hide {
   display: none;
+}
+
+.Emoji-grid__reccos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 2.5em;
+}
+
+.Emoji-grid__title {
+  font-size: 2.25em;
 }

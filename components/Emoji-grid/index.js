@@ -4,12 +4,13 @@ import genres from '../../lib/genres'
 
 export default class Search {
   constructor(opts) {
-    // this.step1 = document.querySelector(opts.step1)
-    // this.step2 = document.querySelector(opts.step2)
+    this.step1 = document.querySelector(opts.step1)
+    this.step2 = document.querySelector(opts.step2)
     this.grid = document.querySelector(opts.grid)
-    // this.reccos = document.querySelector(opts.reccos)
+    this.reccos = document.querySelector(opts.reccos)
     this.search = document.querySelector(opts.search)
-    // this.restart = document.querySelector(opts.restart)
+    this.restart = document.querySelector(opts.restart)
+    this.title = document.querySelector(opts.title)
     this.list = document.createElement('ul')
 
     // fill this.list with li nodes
@@ -20,7 +21,7 @@ export default class Search {
     this.grid.appendChild(this.list)
 
     // restart after choosing emoji
-    // this.restart.addEventListener('click', () => this.reset())
+    this.restart.addEventListener('click', e => this.reset(e))
 
     // text input filter emojis
     this.search.addEventListener('keyup', e => this.filterEmojis(e))
@@ -60,7 +61,6 @@ export default class Search {
   // fade out content and fetch recommendations from API
   getRecommendations(emo) {
     console.log(emo)
-    this.reccos.innerHTML = '<p class="Recommendations__loading">Fetching tunes...</p>'
     this.step1.style.opacity = 0
     setTimeout(() => {
       this.step1.style.display = 'none'
@@ -69,7 +69,7 @@ export default class Search {
     }, 350)
 
     request
-      .get(`/api/recommendations/${emo}`)
+      .get(`/api/recommendations/tracks/${emo}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
@@ -86,12 +86,15 @@ export default class Search {
           return
         }
 
-        this.showRecommendations(json.tracks)
+        console.log(json)
+
+        this.showRecommendations(emo, json.items.slice(0, 3))
       })
   }
 
   // append recommendation iframes to DOM
-  showRecommendations(tracks) {
+  showRecommendations(emo, tracks) {
+    this.title.innerHTML = `The sweet sounds of ${emo}`
     this.reccos.innerHTML = ''
     tracks.forEach(track => {
       const trackContainer = document.createElement('div')
@@ -111,7 +114,8 @@ export default class Search {
   }
 
   // reset back to emoji list
-  reset() {
+  reset(e) {
+    e.preventDefault()
     this.step2.style.opacity = 0
 
     setTimeout(() => {

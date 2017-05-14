@@ -102,8 +102,8 @@ export default class Masthead {
             data-masthead-recco>
             <div class="Masthead-recommendations__embed">
               <iframe src="https://embed.spotify.com/?uri=${item.embed}"
-      						width="315"
-      						height="390
+      						width="300"
+      						height="380
       						frameborder="0"
       						style="border: 0;"
       						allowtransparency="true">
