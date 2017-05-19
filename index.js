@@ -66,8 +66,9 @@ routes.add('GET /api/recommendations/{type}/{emoji}', (req, res) => {
     foundEmoji = emoji.get(decodedEmojiParam)
   } else {
     res.end(JSON.stringify({
-      error: 'Emoji not supported'
+      msg: msgs.getNoEmojiMsg()
     }))
+    return
   }
 
   getRecommendations(req.params.type, foundEmoji).then(
@@ -203,9 +204,9 @@ function getRecommendations(type, emoji) {
 
   // return promise and wait for Spotify API call
   return new Promise((resolve, reject) => {
-    if (!q) {
-      reject({
-        'error': 'No genres match emoji'
+    if (!q.keyword) {
+      resolve({
+        msg: 'Emoji not supported'
       })
     }
 
