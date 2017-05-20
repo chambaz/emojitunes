@@ -11,6 +11,7 @@ export default class Search {
     this.search = document.querySelector(opts.search)
     this.restart = document.querySelector(opts.restart)
     this.title = document.querySelector(opts.title)
+    this.random = document.querySelector(opts.random)
     this.list = document.createElement('ul')
 
     // fill this.list with li nodes
@@ -25,6 +26,9 @@ export default class Search {
 
     // text input filter emojis
     this.search.addEventListener('keyup', e => this.filterEmojis(e))
+
+    // random emoji
+    this.random.addEventListener('click', e => this.randomEmoji(e))
 
     // keyboard nav
     document.addEventListener('keydown', e => this.keyboardNav(e))
@@ -60,7 +64,8 @@ export default class Search {
 
   // fade out content and fetch recommendations from API
   getRecommendations(emo) {
-    console.log(emo)
+    this.title.innerHTML = ''
+    this.reccos.innerHTML = ''
     this.step1.style.opacity = 0
     setTimeout(() => {
       this.step1.style.display = 'none'
@@ -95,7 +100,6 @@ export default class Search {
   // append recommendation iframes to DOM
   showRecommendations(emo, tracks) {
     this.title.innerHTML = `The sweet sounds of ${emo}`
-    this.reccos.innerHTML = ''
     tracks.forEach(track => {
       const trackContainer = document.createElement('div')
       trackContainer.classList.add('Recommendations__item')
@@ -111,6 +115,13 @@ export default class Search {
       trackContainer.innerHTML = iframe
       this.reccos.appendChild(trackContainer)
     })
+  }
+
+  randomEmoji(e) {
+    e.preventDefault()
+
+    const items = this.list.querySelectorAll('[data-emoji]')
+    this.getRecommendations(items[Math.floor(Math.random() * items.length)].innerHTML)
   }
 
   // reset back to emoji list

@@ -16,7 +16,8 @@ new EmojiGrid({
   reccos: '[data-emoji-grid-reccos]',
   search: '[data-emoji-grid-search]',
   restart: '[data-emoji-grid-restart]',
-  title: '[data-emoji-grid-title]'
+  title: '[data-emoji-grid-title]',
+  random: '[data-emoji-grid-random]'
 })
 
 $(function() {
