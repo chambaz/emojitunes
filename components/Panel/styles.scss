@@ -1,14 +1,22 @@
 .Panel--split {
   display: flex;
-  height: 39.375em;
   justify-content: flex-end;
-  padding: 0 0 0 1.25em;
+
+  @media(min-width: $large-screen) {
+    height: 39.375em;
+    padding: 0 0 0 1.25em;
+  }
 }
 
 .Panel--split .Panel__inner {
   align-items: center;
   display: flex;
-  width: 90%;
+  flex-direction: column;
+
+  @media(min-width: $large-screen) {
+    flex-direction: row;
+    width: 90%;
+  }
 }
 
 .Panel--centered {
@@ -24,14 +32,21 @@
   color: $white;
 }
 
-.Panel--eq {
-  background: url('/img/eq-background.png') no-repeat center;
+.Panel--waves {
+  background: url('/img/bg-waves.jpg') no-repeat center;
   background-size: cover;
   color: $white;
 }
 
 .Panel__content {
-  width: 50%;
+  padding: 5em 2.5em;
+  text-align: center;
+
+  @media(min-width: $large-screen) {
+    padding: 0;
+    text-align: left;
+    width: 50%;
+  }
 }
 
 .Panel__title {
@@ -46,7 +61,10 @@
 
 .Panel__body {
   margin: 2.5em 0;
-  width: 80%;
+
+  @media(min-width: $large-screen) {
+    width: 80%;
+  }
 }
 
 .Panel__img {

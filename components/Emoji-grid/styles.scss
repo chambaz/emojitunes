@@ -28,8 +28,13 @@
   border: 1px solid $gray-light;
   border-radius: 2px;
   font-size: 1.2em;
-  margin: 1.25em;
-  width: 100%;
+  margin: 1.25em 0;
+  width: 90%;
+
+  @media(min-width: $large-screen) {
+    margin: 1.25em;
+    width: 100%;
+  }
 
   &::-webkit-input-placeholder {
     color: $gray-light;
