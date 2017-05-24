@@ -1,11 +1,8 @@
 .Panel--split {
-  @media(min-width: $medium-screen) {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   @media(min-width: $large-screen) {
+    display: flex;
     height: 39.375em;
+    justify-content: flex-end;
     padding: 0 0 0 1.25em;
   }
 }
@@ -17,6 +14,10 @@
 
   @media(min-width: $large-screen) {
     flex-direction: row;
+    width: 100%;
+  }
+
+  @media(min-width: $max-width) {
     width: 90%;
   }
 }
@@ -44,10 +45,6 @@
 .Panel__content {
   padding: 4em 1.25em;
   text-align: center;
-
-  @media(min-width: $medium-screen) {
-    padding: 5em 2.5em;
-  }
 
   @media(min-width: $large-screen) {
     padding: 0;
@@ -79,7 +76,7 @@
   position: relative;
   top: 6.5625em;
 
-  @media(min-width: $medium-screen) {
+  @media(min-width: $large-screen) {
     display: block;
   }
 }

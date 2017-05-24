@@ -3,9 +3,14 @@
 }
 
 .Footer__body {
-  align-items: center;
-  display: flex;
-  justify-content: center;
+  text-align: center;
+
+  @media(min-width: $medium-screen) {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+  }
 }
 
 .Footer__heart {
