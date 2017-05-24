@@ -2,12 +2,16 @@
   align-items: center;
   background: $white;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: .625em 1.25em;
   position: fixed;
   transition: .3s;
   width: 100%;
   z-index: 2;
+
+  @media(min-width: $medium-screen) {
+    justify-content: space-between;
+  }
 }
 
 .Header--unpinned {
@@ -23,8 +27,20 @@
   box-shadow: none;
 }
 
+.Header__logo {
+  max-width: 15em;
+
+  @media(min-width: $medium-screen) {
+    max-width: none;
+  }
+}
+
 .Header__btn {
-  display: block;
+  display: none;
   height: 2.5em;
   width: 8.6875em;
+
+  @media(min-width: $medium-screen) {
+    display: block;
+  }
 }
