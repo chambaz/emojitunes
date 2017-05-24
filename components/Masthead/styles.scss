@@ -41,8 +41,12 @@
 }
 
 .Masthead__title {
-  font-size: 3.625em;
+  font-size: 3em;
   opacity: 0;
+
+  @media(min-width: $medium-screen) {
+    font-size: 3.625em;
+  }
 }
 
 .Masthead__body {
