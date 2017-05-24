@@ -1,8 +1,12 @@
 .Emoji-grid {
-  height: 750px;
+  height: 33.75em;
   padding: 1.25em;
   position: relative;
   text-align: center;
+
+  @media(min-width: $medium-screen) {
+    height: 46.875em;
+  }
 }
 
 .Emoji-grid__inner {
