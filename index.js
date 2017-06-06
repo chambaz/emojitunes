@@ -203,7 +203,7 @@ function getRecommendations(type, emoji) {
   })
 
   // return promise and wait for Spotify API call
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     if (!q.keyword) {
       resolve({
         msg: 'Emoji not supported'
