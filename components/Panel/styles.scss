@@ -54,7 +54,20 @@
 }
 
 .Panel__title {
+  display: flex;
+  flex-direction: column;
+  font-size: 3.25em;
   margin-bottom: .555555556em;
+}
+
+.Panel__title-icons {
+  align-items: center;
+  display: flex;
+}
+
+.Panel__title-icon {
+  margin: .384615385em;
+  width: 1.2em;
 }
 
 .Panel__sub-title {
@@ -79,4 +92,13 @@
   @media(min-width: $large-screen) {
     display: block;
   }
+}
+
+.Panel__btns {
+  display: flex;
+  justify-content: center;
+}
+
+.Panel__btn:first-child {
+  margin-right: 1.25em;
 }

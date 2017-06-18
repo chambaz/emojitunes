@@ -35,6 +35,12 @@
   }
 }
 
+.Header__btns {
+  display: flex;
+  margin-left: auto;
+  margin-right: 1.25em;
+}
+
 .Header__btn {
   display: none;
   height: 2.5em;
@@ -43,4 +49,8 @@
   @media(min-width: $medium-screen) {
     display: block;
   }
+}
+
+.Header__btn:first-child {
+  margin-right: 1.25em;
 }

@@ -41,17 +41,24 @@
   <header class="Header" data-headroom>
     <img class="Header__logo" src="/img/emojitunes.svg" />
 
-    <a
-      class="Header__btn"
-      href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
-      <img
-        alt="Add to Slack"
-        height="40"
-        width="139"
-        src="https://platform.slack-edge.com/img/add_to_slack.png"
-        srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
-      />
-    </a>
+    <div class="Header__btns">
+      <a class="Header__btn Button" href="#">
+        <img class="Button__icon" src="/img/twitter.svg" />
+        Tweet @emojitunes
+      </a>
+
+      <a
+        class="Header__btn"
+        href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
+        <img
+          alt="Add to Slack"
+          height="40"
+          width="139"
+          src="https://platform.slack-edge.com/img/add_to_slack.png"
+          srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+        />
+      </a>
+    </div>
   </header>
 
   <section class="Masthead">
@@ -129,19 +136,31 @@
   <section class="Panel Panel--centered Panel--waves">
     <div class="Panel__inner">
       <h1 class="Panel__title">
-        Emoji + Slack = Spotify Playlist 👍
+        <span>Get Emojitunes now...</span>
+        <div class="Panel__title-icons">
+          <img class="Panel__title-icon" src="/img/emojitunes-icon.svg" /> +
+          <img class="Panel__title-icon" src="/img/twitter.svg" /> +
+          <img class="Panel__title-icon" src="/img/slack.svg" /> = 👍
+        </div>
       </h1>
-      <a
-        class="Panel__btn"
-        href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
-        <img
-          alt="Add to Slack"
-          height="40"
-          width="139"
-          src="https://platform.slack-edge.com/img/add_to_slack.png"
-          srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
-        />
-      </a>
+
+      <div class="Panel__btns">
+        <a class="Panel__btn Button" href="#">
+          <img class="Button__icon" src="/img/twitter.svg" />
+          Tweet @emojitunes
+        </a>
+        <a
+          class="Panel__btn"
+          href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
+          <img
+            alt="Add to Slack"
+            height="40"
+            width="139"
+            src="https://platform.slack-edge.com/img/add_to_slack.png"
+            srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+          />
+        </a>
+      </div>
     </div>
   </section>
 
