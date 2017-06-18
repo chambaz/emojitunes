@@ -27,17 +27,49 @@ export default class Masthead {
     this.restartAnimation()
   }
 
+  animateOpts() {
+    const animateOpts = {
+      large: {
+        in: {
+          left: 0,
+          opacity: 1
+        },
+        out: {
+          left: '50vw',
+          opacity: 1
+        }
+      },
+      small: {
+        in: {
+          opacity: 1,
+          left: 0
+        },
+        out: {
+          opacity: 0,
+          left: 0
+        }
+      }
+    }
+
+    const matchMedia = window.matchMedia('(min-width: 64.375em)').matches
+    console.log(matchMedia ? animateOpts.large : animateOpts.small)
+
+    return matchMedia ? animateOpts.large : animateOpts.small
+  }
+
   // handle animating in and out
   animate() {
-    this.animateIn()
+    let animateOpts = this.animateOpts()
+    this.animateIn(animateOpts)
     setTimeout(() => {
-      this.animateOut()
+      animateOpts = this.animateOpts()
+      this.animateOut(animateOpts)
       setTimeout(() => this.restartAnimation(), 1000)
     }, 5000)
   }
 
   // fade in emoji and slide in reccomendations
-  animateIn() {
+  animateIn(animateOpts) {
     // fade in emoji
     this.ui.emoji.animate({
       opacity: 1
@@ -46,9 +78,7 @@ export default class Masthead {
       setTimeout(() => {
         this.ui.reccos.find('[data-masthead-recco]').each(function(i) {
           setTimeout(() => {
-            $(this).animate({
-              left: 0
-            }, 500, 'easeOutQuad')
+            $(this).animate(animateOpts.in, 500, 'easeOutQuad')
           }, i * 200)
         })
       }, 300)
@@ -56,7 +86,7 @@ export default class Masthead {
   }
 
   // fade out emoji and slide out recommendations
-  animateOut() {
+  animateOut(animateOpts) {
     // fade out emoji
     this.ui.emoji.animate({
       opacity: 0
@@ -65,9 +95,7 @@ export default class Masthead {
     // loop through reccomendations and slide each out
     this.ui.reccos.find('[data-masthead-recco]').each(function(i) {
       setTimeout(() => {
-        $(this).animate({
-          left: '50vw'
-        }, 500, 'easeInBack')
+        $(this).animate(animateOpts.out, 500, 'easeInBack')
       }, i * 200)
     })
   }

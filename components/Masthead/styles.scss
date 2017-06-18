@@ -83,11 +83,23 @@
   box-shadow: 20px 20px 40px 0 rgba(0, 0, 0, .30);
   display: block;
   height: 23.75em;
-  left: 50vw;
-  margin-right: 2.5em;
   position: relative;
+
+  @media(min-width: $medium-screen) {
+    display: block;
+    margin-right: 2.5em;
+  }
+
+  @media(min-width: $large-screen) {
+    left: 50vw;
+  }
 }
 
 .Masthead-recommendations__item:last-child {
+  display: none;
   margin-right: 0;
+
+  @media(min-width: $medium-screen) {
+    display: block;
+  }
 }
