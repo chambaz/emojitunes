@@ -205,12 +205,9 @@ function getRecommendations(type, emoji) {
   // return promise and wait for Spotify API call
   return new Promise(resolve => {
     if (!q.keyword) {
-      resolve({
-        msg: 'Emoji not supported'
-      })
+      const genreKeys = Object.keys(genres)
+      q = genreKeys[Math.floor(Math.random() * genreKeys.length)]
     }
-
-    console.log(q)
 
     let method = 'searchPlaylists'
     let search = `genre:"${q.genre}"`
