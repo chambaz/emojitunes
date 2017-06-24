@@ -206,8 +206,14 @@ function getRecommendations(type, emoji) {
   return new Promise(resolve => {
     let search = ''
 
-    if (q.artist) {
-      search = `artist:"${q.artist}"`
+    if (q.track || q.artist) {
+      if (q.track && !q.artist) {
+        search = `track:"${q.track}"`
+      } else if (q.artist && !q.track) {
+        search = `artist:"${q.artist}"`
+      } else if (q.track && q.artist) {
+        search = `track:"${q.track}" artist:"${q.artist}"`
+      }
     } else {
       if (!q.keyword) {
         const genreKeys = Object.keys(genres)
