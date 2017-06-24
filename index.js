@@ -206,7 +206,7 @@ function getRecommendations(type, emoji) {
   return new Promise(resolve => {
     if (!q.keyword) {
       const genreKeys = Object.keys(genres)
-      q = genreKeys[Math.floor(Math.random() * genreKeys.length)]
+      q = genres[genreKeys[Math.floor(Math.random() * genreKeys.length)]]
     }
 
     let method = 'searchPlaylists'
