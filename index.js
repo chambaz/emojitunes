@@ -204,13 +204,20 @@ function getRecommendations(type, emoji) {
 
   // return promise and wait for Spotify API call
   return new Promise(resolve => {
-    if (!q.keyword) {
-      const genreKeys = Object.keys(genres)
-      q = genres[genreKeys[Math.floor(Math.random() * genreKeys.length)]]
+    let search = ''
+
+    if (q.artist) {
+      search = `artist:"${q.artist}"`
+    } else {
+      if (!q.keyword) {
+        const genreKeys = Object.keys(genres)
+        q = genres[genreKeys[Math.floor(Math.random() * genreKeys.length)]]
+      }
+
+      search = `genre:"${q.genre}"`
     }
 
     let method = 'searchPlaylists'
-    let search = `genre:"${q.genre}"`
 
     if (type === 'tracks') {
       method = 'searchTracks'
