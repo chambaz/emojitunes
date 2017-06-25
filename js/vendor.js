@@ -1,4 +1,5 @@
 module.exports = [
   'parallaxease',
-  'headroom.js'
+  'headroom.js',
+  'openshare'
 ]

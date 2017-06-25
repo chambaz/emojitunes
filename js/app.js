@@ -5,6 +5,7 @@ import 'babel-polyfill'
 // ==========================================================================
 import Parallaxease from 'parallaxease'
 import Headroom from 'headroom.js'
+import OpenShare from 'openshare'
 
 import EmojiGrid from '../components/Emoji-grid'
 import Masthead from '../components/Masthead'
