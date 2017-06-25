@@ -1,0 +1,108 @@
+.Panel--split {
+  @media(min-width: $large-screen) {
+    display: flex;
+    height: 39.375em;
+    justify-content: flex-end;
+    padding: 0 0 0 1.25em;
+  }
+}
+
+.Panel--split .Panel__inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  @media(min-width: $large-screen) {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  @media(min-width: $max-width) {
+    width: 90%;
+  }
+}
+
+.Panel--centered {
+  align-items: center;
+  display: flex;
+  height: 31.25em;
+  justify-content: center;
+  padding: 0 1.25em;
+  text-align: center;
+}
+
+.Panel--gradient {
+  background-image: linear-gradient(134deg, #3326ad 0%, #c96dd8 100%);
+  color: $white;
+}
+
+.Panel--waves {
+  background: url('/img/bg-waves.jpg') no-repeat center;
+  background-size: cover;
+  color: $white;
+}
+
+.Panel__content {
+  padding: 4em 1.25em;
+  text-align: center;
+
+  @media(min-width: $large-screen) {
+    padding: 0;
+    text-align: left;
+    width: 50%;
+  }
+}
+
+.Panel__title {
+  display: flex;
+  flex-direction: column;
+  font-size: 2em;
+  margin-bottom: .555555556em;
+
+  @media(min-width: $medium-screen) {
+    font-size: 3.25em;
+  }
+}
+
+.Panel__title-icons {
+  align-items: center;
+  display: flex;
+}
+
+.Panel__title-icon {
+  margin: .384615385em;
+  width: 1.2em;
+}
+
+.Panel__sub-title {
+  color: #d1cfcf;
+  font-style: italic;
+  margin-bottom: .909090909em;
+}
+
+.Panel__body {
+  margin: 2.5em 0;
+
+  @media(min-width: $large-screen) {
+    width: 80%;
+  }
+}
+
+.Panel__img {
+  display: none;
+  position: relative;
+  top: 6.5625em;
+
+  @media(min-width: $large-screen) {
+    display: block;
+  }
+}
+
+.Panel__btns {
+  display: flex;
+  justify-content: center;
+}
+
+.Panel__btn:first-child {
+  margin-right: 1.25em;
+}

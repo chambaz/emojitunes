@@ -1,5 +1,6 @@
 import request from 'superagent'
-import emojis from '../../lib/emojis'
+import emoji from 'node-emoji'
+import genres from '../../lib/genres'
 
 export default class Search {
   constructor(opts) {
@@ -9,21 +10,25 @@ export default class Search {
     this.reccos = document.querySelector(opts.reccos)
     this.search = document.querySelector(opts.search)
     this.restart = document.querySelector(opts.restart)
+    this.title = document.querySelector(opts.title)
+    this.random = document.querySelector(opts.random)
     this.list = document.createElement('ul')
-    this.availableEmojis = emojis.availableEmojis()
 
     // fill this.list with li nodes
-    this.availableEmojis.map((emo, i) => this.addEmojiNode(emo, i))
+    Object.keys(genres).map((emo, i) => this.addEmojiNode(emo, i))
 
     // add class to ul and append to DOM
     this.list.classList.add('Emoji-grid__list')
     this.grid.appendChild(this.list)
 
     // restart after choosing emoji
-    this.restart.addEventListener('click', () => this.reset())
+    this.restart.addEventListener('click', e => this.reset(e))
 
     // text input filter emojis
     this.search.addEventListener('keyup', e => this.filterEmojis(e))
+
+    // random emoji
+    this.random.addEventListener('click', e => this.randomEmoji(e))
 
     // keyboard nav
     document.addEventListener('keydown', e => this.keyboardNav(e))
@@ -31,13 +36,13 @@ export default class Search {
 
   // append li nodes to this.list
   addEmojiNode(emo, i) {
+    const emojiDetails = genres[emo]
     const child = document.createElement('li')
-    let [emojiName, emojiCode] = emo
     child.classList.add('Emoji-grid__item')
-    child.setAttribute('data-emoji', emojiName)
+    child.setAttribute('data-emoji', `${emojiDetails.genre} ${emojiDetails.keyword} ${emoji.which(emo)} ${emo}`)
     child.setAttribute('data-index', i)
     child.setAttribute('data-visible', 'true')
-    child.innerHTML = emojiCode
+    child.innerHTML = emo
     child.tabIndex = 0
     child.addEventListener('click', e => this.getRecommendations(e.currentTarget.innerHTML))
 
@@ -59,7 +64,8 @@ export default class Search {
 
   // fade out content and fetch recommendations from API
   getRecommendations(emo) {
-    this.reccos.innerHTML = '<p class="Recommendations__loading">Fetching tunes...</p>'
+    this.title.innerHTML = ''
+    this.reccos.innerHTML = ''
     this.step1.style.opacity = 0
     setTimeout(() => {
       this.step1.style.display = 'none'
@@ -68,7 +74,7 @@ export default class Search {
     }, 350)
 
     request
-      .get(`/api/recommendations/${emo}`)
+      .get(`/api/recommendations/tracks/${emo}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
@@ -85,13 +91,15 @@ export default class Search {
           return
         }
 
-        this.showRecommendations(json.tracks)
+        console.log(json)
+
+        this.showRecommendations(emo, json.items.slice(0, 3))
       })
   }
 
   // append recommendation iframes to DOM
-  showRecommendations(tracks) {
-    this.reccos.innerHTML = ''
+  showRecommendations(emo, tracks) {
+    this.title.innerHTML = `The sweet sounds of ${emo}`
     tracks.forEach(track => {
       const trackContainer = document.createElement('div')
       trackContainer.classList.add('Recommendations__item')
@@ -109,8 +117,16 @@ export default class Search {
     })
   }
 
+  randomEmoji(e) {
+    e.preventDefault()
+
+    const items = this.list.querySelectorAll('[data-emoji]')
+    this.getRecommendations(items[Math.floor(Math.random() * items.length)].innerHTML)
+  }
+
   // reset back to emoji list
-  reset() {
+  reset(e) {
+    e.preventDefault()
     this.step2.style.opacity = 0
 
     setTimeout(() => {

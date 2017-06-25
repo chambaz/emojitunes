@@ -1,0 +1,27 @@
+.Button {
+  align-items: center;
+  background: $white;
+  border: solid 1px #c7cacd;
+  border-radius: 6px;
+  display: none;
+  height: 40px;
+  padding: .75em .625em .625em;
+  text-decoration: none;
+  width: auto;
+
+  &,
+  &:hover,
+  &:active,
+  &:visited {
+    color: #333;
+  }
+
+  @media(min-width: $medium-screen) {
+    display: flex;
+  }
+}
+
+.Button__icon {
+  margin-right: .625em;
+  max-width: 1.5em;
+}

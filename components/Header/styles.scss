@@ -1,39 +1,57 @@
 .Header {
-  padding: 1.25em;
-
-  @media(min-width: $medium-screen) {
-    padding: 0;
-  }
-}
-
-.Header__title {
   align-items: center;
-  color: $white;
+  background: $white;
   display: flex;
-  font-size: 1.875em;
-  height: 1.5em;
   justify-content: center;
-  margin: 0;
+  padding: .625em 1.25em;
+  position: fixed;
+  transition: .3s;
+  width: 100%;
+  z-index: 2;
 
   @media(min-width: $medium-screen) {
-    font-size: 3.75em;
+    justify-content: space-between;
   }
 }
 
-.Header__emoji {
-  display: inline-block;
-  position: relative;
-  width: 40px;
+.Header--unpinned {
+  transform: translateY(-6.25em);
+}
+
+.Header--pinned {
+  box-shadow: 0 10px 30px 0 rgba(0, 0 , 0, .1);
+  transform: translateY(0);
+}
+
+.Header--top {
+  box-shadow: none;
+}
+
+.Header__logo {
+  max-width: 15em;
 
   @media(min-width: $medium-screen) {
-    width: 80px;
+    max-width: none;
   }
 }
 
-.Header__emoji:first-child {
-  margin-right: 10px;
+.Header__btns {
+  display: flex;
+  margin-left: auto;
+  margin-right: 1.25em;
+  margin-top: .7em;
 }
 
-.Header__emoji:last-child {
-  margin-left: 10px;
+.Header__btn {
+  display: none;
+  height: 2.5em;
+  width: 8.6875em;
+
+  @media(min-width: $medium-screen) {
+    display: block;
+  }
+}
+
+.Header__btn:first-child {
+  margin-right: 1.25em;
 }

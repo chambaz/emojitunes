@@ -4,28 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
 
-  <title>EmojiTunes Slackbot - Spotify recommendations from emojis</title>
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet" />
+  <title>Emojitunes Slackbot - Spotify recommendations from emojis</title>
   <link rel="stylesheet" href="/dist/style.css" />
 
-  <meta name="description" content="Send emojis to the EmojiTunes Slackbot and get Spotify recommendations back." />
+  <meta name="description" content="Send emojis to the Emojitunes Slackbot and get Spotify recommendations back." />
   <meta name="author" content="Adam Chambers @chambaz" />
 
   <meta property="og:url" content="https://emojitunes.io" />
-  <meta property="og:title" content="EmojiTunes Slackbot" />
-  <meta property="og:description" content="Send emojis to the EmojiTunes Slackbot and get Spotify recommendations back." />
-  <meta property="og:image" content="https://emojitunes.io/img/emojitunes-share-large.jpg" />
+  <meta property="og:title" content="Emojitunes Slackbot" />
+  <meta property="og:description" content="Send emojis to the Emojitunes Slackbot and get Spotify recommendations back." />
+  <meta property="og:image" content="https://emojitunes.io/emojitunes-large.jpg" />
 
-  <meta itemprop="name" content="EmojiTunes Slackbot" />
-  <meta itemprop="description" content="Send emojis to the EmojiTunes Slackbot and get Spotify recommendations back." />
-  <meta itemprop="image" content="https://emojitunes.io/img/emojitunes-share-large.jpg" />
+  <meta itemprop="name" content="Emojitunes Slackbot" />
+  <meta itemprop="description" content="Send emojis to the Emojitunes Slackbot and get Spotify recommendations back." />
+  <meta itemprop="image" content="https://emojitunes.io/emojitunes-large.jpg" />
 
   <link rel="canonical" href="https://emojitunes.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="EmojiTunes Slackbot" />
-  <meta name="twitter:description" content="Send emojis to the EmojiTunes Slackbot and get Spotify recommendations back." />
-  <meta name="twitter:image" content="https://emojitunes.io/img/emojitunes-share-small.jpg" />
+  <meta name="twitter:title" content="Emojitunes Slackbot" />
+  <meta name="twitter:description" content="Send emojis to the Emojitunes Slackbot and get Spotify recommendations back." />
+  <meta name="twitter:image" content="https://emojitunes.io/emojitunes-small.jpg" />
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
@@ -33,95 +32,182 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#68ca66">
   <meta name="theme-color" content="#ffffff">
+
+  <script src="https://use.typekit.net/var4hhj.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 <body>
 
-  <main class="Container">
-    <div class="Container__inner">
-      <header class="Header">
-        <h1 class="Header__title">
-          <img class="Header__emoji" src="/img/emojitunes.svg" />
-          Emojitunes
-          <img class="Header__emoji" src="/img/emojitunes.svg" />
+  <header class="Header" data-headroom>
+    <img class="Header__logo" src="/img/emojitunes.svg" />
+
+    <div class="Header__btns">
+      <a class="Header__btn Button" href="#">
+        <img class="Button__icon" src="/img/twitter-color.svg" />
+        Tweet @emojitunes
+      </a>
+
+      <a
+        class="Header__btn"
+        href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
+        <img
+          alt="Add to Slack"
+          height="40"
+          width="139"
+          src="https://platform.slack-edge.com/img/add_to_slack.png"
+          srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+        />
+      </a>
+    </div>
+  </header>
+
+  <section class="Masthead">
+    <div class="Masthead__inner">
+      <div class="Masthead__content">
+        <h1 class="Masthead__title" data-masthead-step>
+          Change the mood of a room with a single
+          <span class="Masthead__emoji" data-masthead-emoji></span>
         </h1>
-      </header>
-
-      <div class="Container__intro" data-step="1">
-        <div class="Body">
-          <p class="Body__description">
-            🔥 Get Spotify recommendations from a simple emoji 🔥  <br class="Body__break" />
-            Install the Slack Bot 🤖 or pick an emoji from below 👇
-          </p>
-
-          <a
-            href="https://slack.com/oauth/authorize?&client_id=2342865809.159362311653&scope=bot"
-            class="Body__slack-btn">
-            <img
-              alt="Add to Slack"
-              height="40"
-              width="139"
-              src="https://platform.slack-edge.com/img/add_to_slack.png"
-              srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
-            />
-          </a>
-
-          <div class="Slack">
-            <div class="Slack__row Slack__row--first" data-slack-msg>
-              <img class="Slack__avatar" src="/img/avatar.jpg" />
-              <div class="Slack__msg">
-                <header class="Slack__header">
-                  <h3 class="Slack__name">Adam Chambers</h3>
-                  <time class="Slack__time">6:00 AM</time>
-                </header>
-                <p class="Slack__body" data-msg>Hey @emojitunes give me some</p>
-              </div>
-            </div>
-            <div class="Slack__row Slack__row--second" data-slack-msg>
-              <img class="Slack__avatar" src="/img/emojitunes.svg" />
-              <div class="Slack__msg">
-                <header class="Slack__header">
-                  <h3 class="Slack__name">emojitunes</h3>
-                  <time class="Slack__time">6:00 AM</time>
-                </header>
-                <p class="Slack__body" data-msg="random"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="Emoji-grid" data-emoji-grid>
-          <form class="Emoji-grid__form">
-            <input
-              class="Emoji-grid__search"
-              data-search
-              type="search"
-              placeholder="Search emojis..."
-              autofocus
-              />
-          </form>
-        </div>
+        <p class="Masthead__body" data-masthead-step>
+          Emojitunes – Fresh music from emojis, served up to your team when you need it.
+        </p>
       </div>
+      <ul
+        class="Masthead-recommendations"
+        data-masthead-reccos
+        data-parallax='{"y": -60}'></ul>
+    </div>
+  </section>
 
-      <div class="Container__reccos" data-step="2">
-        <div class="Recommendations">
-          <a class="Recommendations__restart" data-restart>✋ Try a different emoji?</a>
-          <div class="Recommendations__grid" data-reccos>
-            <p class="Recommendations__loading">Fetching tunes...</p>
-          </div>
-        </div>
+  <section class="Panel Panel--gradient Panel--split">
+    <div class="Panel__inner">
+      <div class="Panel__content">
+        <h1 class="Panel__title">
+          A new way to find the soundtrack for the moment.
+        </h1>
+        <h2 class="Panel__sub-title">
+          (...or become the office DJ!)
+        </h2>
+        <p class="Panel__body">
+          All you have to do is add emojitunes to slack, type an emoji and start rocking out!
+        </p>
+        <a
+          class="Panel__btn"
+          href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
+          <img
+            alt="Add to Slack"
+            height="40"
+            width="139"
+            src="https://platform.slack-edge.com/img/add_to_slack.png"
+            srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+          />
+        </a>
       </div>
+      <img class="Panel__img" src="/img/slack-screenshot.png" data-parallax='{"y": -60}' />
+    </div>
+  </section>
+
+  <section class="Emoji-grid">
+    <div class="Emoji-grid__inner Emoji-grid__inner--small" data-emoji-grid-step="1">
+      <h1 class="Emoji-grid__title">
+        Get a sample of how emojitunes works.
+      </h1>
+      <input
+        class="Emoji-grid__input"
+        data-emoji-grid-search
+        type="text"
+        placeholder="What's your mood?" />
+      <p class="Emoji-grid__body">
+        <a data-emoji-grid-random href="#">Guess my mood</a>
+      </p>
+      <div data-emoji-grid></div>
     </div>
 
-    <footer class="Footer">
-      <p class="Footer__body">
-        Made with <span class="Footer__heart">❤️</span> at
-        <a class="Footer__img" href="https://www.digitalsurgeons.com">
-          <img src="/img/digitalsurgeons.png" />
-        </a>
-      </p>
-    </footer>
-  </main>
+    <div class="Emoji-grid__inner Emoji-grid__inner--hide" data-emoji-grid-step="2">
+      <h2 data-emoji-grid-title class="Emoji-grid__title"></h2>
+      <a data-emoji-grid-restart href="#">Try a different emoji</a>
 
+      <div class="Emoji-grid__reccos" data-emoji-grid-reccos>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="Panel Panel--centered Panel--waves">
+    <div class="Panel__inner">
+      <h1 class="Panel__title">
+        <span>Get Emojitunes now...</span>
+        <div class="Panel__title-icons">
+          <img class="Panel__title-icon" src="/img/emojitunes-icon.svg" /> +
+          <img class="Panel__title-icon" src="/img/twitter-color.svg" /> +
+          <img class="Panel__title-icon" src="/img/slack.svg" /> = 👍
+        </div>
+      </h1>
+
+      <div class="Panel__btns">
+        <a class="Panel__btn Button" href="#">
+          <img class="Button__icon" src="/img/twitter-color.svg" />
+          Tweet @emojitunes
+        </a>
+        <a
+          class="Panel__btn"
+          href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=2342865809.159362311653">
+          <img
+            alt="Add to Slack"
+            height="40"
+            width="139"
+            src="https://platform.slack-edge.com/img/add_to_slack.png"
+            srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+          />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="Footer">
+    <p class="Footer__body">
+      Made with <span class="Footer__heart">❤️</span> at
+      <a class="Footer__img" href="https://www.digitalsurgeons.com">
+        <img src="/img/digitalsurgeons.svg" />
+      </a>
+    </p>
+  </footer>
+
+  <ul class="Share">
+    <li class="Share__item--count">
+      <span class="Share__count" data-open-share-count="twitter,linkedin,facebook,google" data-open-share-count-url="https://emojitunes.io"
+  		  data-open-share-key="dstweets">0</span>
+      shares
+    </li>
+    <li class="Share__item">
+      <a href="#" class="Share__link--twitter" data-open-share="twitter" data-open-share-url="https://emojitunes.io" data-open-share-text="Send emojis to @emojitunes and get Spotify recommendations back!" data-open-share-via="emojitunes">
+        <img class="Share__icon" src="/img/twitter.svg" />
+      </a>
+    </li>
+    <li class="Share__item">
+      <a href="#" class="Share__link--linkedin" data-open-share="linkedin" data-open-share-url="https://emojitunes.io" data-open-share-title="Send emojis to the Emojitunes Slackbot and get Spotify recommendations back">
+        <img class="Share__icon" src="/img/linkedIn.svg" />
+      </a>
+    </li>
+    <li class="Share__item">
+      <a href="#" class="Share__link--facebook" data-open-share="facebook" data-open-share-link="https://emojitunes.io" data-open-share-caption="Send emojis to the Emojitunes Slackbot and get Spotify recommendations back">
+        <img class="Share__icon" src="/img/facebook.svg" />
+      </a>
+    </li>
+    <li class="Share__item">
+      <a href="#" class="Share__link--reddit" data-open-share="reddit" data-open-share-url="https://emojitunes.io"  data-open-share-title="Send emojis to the Emojitunes Slackbot and get Spotify recommendations back">
+        <img class="Share__icon" src="/img/reddit.svg" />
+      </a>
+    </li>
+    <li class="Share__item">
+      <a href="#" class="Share__link--buffer" data-open-share="buffer" data-open-share-url="https://emojitunes.io">
+        <img class="Share__icon" src="/img/buffer.svg" />
+      </a>
+    </li>
+  </ul>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
   <script src="/dist/vendor.js"></script>
   <script src="/dist/bundle.js"></script>
 </body>

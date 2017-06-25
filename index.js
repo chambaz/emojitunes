@@ -1,9 +1,10 @@
+#!/usr/bin/env nodejs
+
 // require config, http, routing modules
 const config = require('./config')
 const http = require('http')
 const routes = require('patterns')()
 const st = require('st')
-
 
 // serve static files in public directory
 const staticDir = st({
@@ -25,8 +26,11 @@ const _ = {
   difference: require('lodash/difference')
 }
 
-// object of genres, each with an array of emojis
+// object of emojis / keywords
 const genres = require('./lib/genres')
+
+// possible response messages
+const msgs = require('./lib/msgs')
 
 // fetch spotify access token
 // clientCredentials method does not require user authentication
@@ -37,11 +41,18 @@ spotifyApi.clientCredentialsGrant().then(data => {
 })
 
 // get recommendations API route
-// @params emoji e.g 🤘
+// @param type e.g 'tracks' 'playlists'
+// @param emoji e.g 🤘
 // @return JSON object containing genre and track arrays
-routes.add('GET /api/recommendations/{emoji}', (req, res) => {
+routes.add('GET /api/recommendations/{type}/{emoji}', (req, res) => {
   res.setHeader('Content-Type', 'application/json')
   res.setHeader('Access-Control-Allow-Origin', '*')
+
+  if (req.params.type !== 'tracks' && req.params.type !== 'playlists') {
+    res.end(JSON.stringify({
+      error: 'Only tracks and playlists supported'
+    }))
+  }
 
   const decodedEmojiParam = decodeURIComponent(req.params.emoji)
   let foundEmoji = false
@@ -55,19 +66,29 @@ routes.add('GET /api/recommendations/{emoji}', (req, res) => {
     foundEmoji = emoji.get(decodedEmojiParam)
   } else {
     res.end(JSON.stringify({
-      error: 'Emoji not supported'
+      msg: msgs.getNoEmojiMsg()
     }))
+    return
   }
 
-  getRecommendations(foundEmoji).then(
+  getRecommendations(req.params.type, foundEmoji).then(
 		recommendations => res.end(JSON.stringify(recommendations)),
 		error => res.end(JSON.stringify(error))
 	)
 })
 
-// get recommendations and return grid of Spotify play button iframes
-routes.add('GET /api/recommendations-browser/{emoji}', (req, res) => {
+// get recommendations-browser API route
+// @param type e.g 'tracks' 'playlists'
+// @param emoji e.g 🤘
+// @return grid of iframe embeds
+routes.add('GET /api/recommendations-browser/{type}/{emoji}', (req, res) => {
   res.setHeader('Content-Type', 'text/html')
+
+  if (req.params.type !== 'tracks' && req.params.type !== 'playlists') {
+    res.end(JSON.stringify({
+      error: 'Only tracks and playlists supported'
+    }))
+  }
 
   const decodedEmojiParam = decodeURIComponent(req.params.emoji)
   let foundEmoji = false
@@ -83,9 +104,9 @@ routes.add('GET /api/recommendations-browser/{emoji}', (req, res) => {
     res.end('Emoji not supported')
   }
 
-  getRecommendations(foundEmoji).then(recommendations => {
+  getRecommendations(req.params.type, foundEmoji).then(recommendations => {
 		// no tracks found
-    if (!recommendations.tracks.length) {
+    if (!recommendations.items.length) {
       res.end('Nothing found 😞')
       return
     }
@@ -93,21 +114,20 @@ routes.add('GET /api/recommendations-browser/{emoji}', (req, res) => {
     const output = []
 
 		// loop through recommendations and build up array of iframes
-    recommendations.tracks.forEach(track => {
+    recommendations.items.forEach(item => {
       output.push(`
-				<iframe src="https://embed.spotify.com/?uri=${track.url}"
+				<iframe src="https://embed.spotify.com/?uri=${item.embed}"
 						width="300"
 						height="380
 						frameborder="0"
 						style="border: 0;"
 						allowtransparency="true">
 				</iframe>
-			`)
+      `)
     })
 
 		// render flex box grid of iframes with title of comma separated genres
     res.end(`
-			<h1 style="text-align: center; text-transform: capitalize;">${recommendations.genres.join(', ')}</h1>
 			<div style="width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap;">
 				${output.join('<br />')}
 			</div>
@@ -118,26 +138,38 @@ routes.add('GET /api/recommendations-browser/{emoji}', (req, res) => {
   })
 })
 
-routes.add('GET /api/genres', (req, res) => {
+// get recommendations message
+// @params emoji e.g 🤘
+// @return JSON object containing genre and track arrays
+routes.add('GET /api/msgs/recommendation/{emoji}', (req, res) => {
   res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Access-Control-Allow-Origin', '*')
 
-  res.end(JSON.stringify(genres))
+  res.end(JSON.stringify({
+    msg: msgs.getRecommendationMsg(decodeURIComponent(req.params.emoji))
+  }))
 })
 
-routes.add('GET /api/new-genres', (req, res) => {
+// get no results message
+// @return JSON object containing genre and track arrays
+routes.add('GET /api/msgs/no-results', (req, res) => {
   res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Access-Control-Allow-Origin', '*')
 
-  spotifyApi
-    .getAvailableGenreSeeds()
-    .then(data => {
-      const current = Object.keys(genres)
-      const available = data.body.genres
-      res.end(JSON.stringify({
-        current,
-        available,
-        new: _.difference(available, current)
-      }))
-    })
+  res.end(JSON.stringify({
+    msg: msgs.getNoResultsMsg()
+  }))
+})
+
+// get no emoji message
+// @return JSON object containing genre and track arrays
+routes.add('GET /api/msgs/no-emoji', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
+  res.end(JSON.stringify({
+    msg: msgs.getNoEmojiMsg()
+  }))
 })
 
 // create server
@@ -160,65 +192,81 @@ server.listen(8080, () => {
   console.log('🤘 Server is running 🤘')
 })
 
-// find genres matching emoji and fetch recommendations from Spotify
-// @params emoji e.g 🤘
-function getRecommendations(emoji) {
-  const foundGenres = []
+function getRecommendations(type, emoji) {
+  let q = {}
 
-	// loop through genres object
-  _.forOwn(genres, (emojis, genre) => {
-		// loop through genre's emojis
-    emojis.every(g => {
-			// if emoji found add genre to foundGenres and break loop
-      if (g === emoji) {
-        foundGenres.push(genre)
-        return false
-      }
-
-      return true
-    })
+  // loop through emojis object
+  _.forOwn(genres, (emoData, emo) => {
+    if (emoji === emo) {
+      q = emoData
+    }
   })
 
-	// shuffle the genres we found
-  const shuffledFoundGenres = _.shuffle(foundGenres).slice(0, 4)
+  // return promise and wait for Spotify API call
+  return new Promise(resolve => {
+    let search = ''
 
-  console.log(shuffledFoundGenres)
+    if (q.track || q.artist) {
+      if (q.track && !q.artist) {
+        search = `track:"${q.track}"`
+      } else if (q.artist && !q.track) {
+        search = `artist:"${q.artist}"`
+      } else if (q.track && q.artist) {
+        search = `track:"${q.track}" artist:"${q.artist}"`
+      }
+    } else {
+      if (!q.keyword) {
+        const genreKeys = Object.keys(genres)
+        q = genres[genreKeys[Math.floor(Math.random() * genreKeys.length)]]
+      }
 
-	// return promise and wait for Spotify API call
-  return new Promise((resolve, reject) => {
-    if (!foundGenres.length) {
-      reject({
-        'error': 'No genres match emoji'
-      })
+      search = `genre:"${q.genre}"`
     }
 
-		// fetch recommendations from spotify using shuffle genres found above
-    spotifyApi.getRecommendations({
-      seed_genres: shuffledFoundGenres,
-      min_popularity: 50
-    }).then(data => {
-      const tracks = []
+    let method = 'searchPlaylists'
 
-			// loop through each track and add object containing artist, title, url
-      data.body.tracks.forEach(track => {
-        tracks.push({
-          artist: track.artists[0].name,
-          title: track.name,
-          url: track.external_urls.spotify
+    if (type === 'tracks') {
+      method = 'searchTracks'
+    }
+
+		// try fetching recommendations by genre
+    spotifyApi[method](search).then(data => {
+      let items = []
+
+      // loop through each track and add object containing artist, title, url
+      data.body[type].items.forEach(track => {
+        items.push({
+          url: track.external_urls.spotify,
+          embed: track.uri
         })
       })
 
-			// resolve promise and return shuffled genres and tracks
-      resolve({
-        genres: shuffledFoundGenres,
-        tracks
-      })
-		// error fetching recommendations from Spotify
-		// reject promise
-    }, error => {
-      reject({
-        error
-      })
+      // if no items found then do keyword search instead
+      if (!items.length) {
+        spotifyApi[method](q.keyword).then(data => {
+          // loop through each track and add object containing artist, title, url
+          data.body[type].items.forEach(track => {
+            items.push({
+              url: track.external_urls.spotify,
+              embed: track.uri
+            })
+          })
+
+          // resolve promise and return shuffled genres and tracks
+          items = _.shuffle(items)
+          resolve({
+            items
+          })
+        })
+
+      // otherwise return genre reccos
+      } else {
+        // resolve promise and return shuffled genres and tracks
+        items = _.shuffle(items)
+        resolve({
+          items
+        })
+      }
     })
   })
 }

@@ -1,20 +1,26 @@
 .Footer {
-  padding: 1.25em 0 2.5em;
+  padding: 1.25em;
 }
 
 .Footer__body {
-  align-items: center;
-  display: flex;
-  justify-content: center;
+  text-align: center;
+
+  @media(min-width: $medium-screen) {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+  }
 }
 
 .Footer__heart {
   margin: 0 .625em 0 .3125em;
-  transform: translateY(2px);
+  padding: .3125em;
+  transform: translateY(.125em);
 }
 
 .Footer__img {
   display: block;
   margin-left: .625em;
-  transform: translateY(4px);
+  transform: translateY(.25em);
 }

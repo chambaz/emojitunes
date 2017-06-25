@@ -3,19 +3,48 @@ import 'babel-polyfill'
 // ==========================================================================
 // Components
 // ==========================================================================
+import Parallaxease from 'parallaxease'
+import Headroom from 'headroom.js'
+import OpenShare from 'openshare'
+
 import EmojiGrid from '../components/Emoji-grid'
-import Slack from '../components/Slack'
+import Masthead from '../components/Masthead'
 
 new EmojiGrid({
-  step1: '[data-step="1"]',
-  step2: '[data-step="2"]',
+  step1: '[data-emoji-grid-step="1"]',
+  step2: '[data-emoji-grid-step="2"]',
   grid: '[data-emoji-grid]',
-  reccos: '[data-reccos]',
-  search: '[data-search]',
-  restart: '[data-restart]'
+  reccos: '[data-emoji-grid-reccos]',
+  search: '[data-emoji-grid-search]',
+  restart: '[data-emoji-grid-restart]',
+  title: '[data-emoji-grid-title]',
+  random: '[data-emoji-grid-random]'
 })
 
-new Slack({
-  msgs: '[data-slack-msg]',
-  randomMsgs: '[data-msg="random"]'
+$(function() {
+
+  // init masthead
+  new Masthead({
+    steps: '[data-masthead-step]',
+    emoji: '[data-masthead-emoji]',
+    reccos: '[data-masthead-reccos]'
+  })
+
+  // init headroom
+  const headroom  = new Headroom(
+    document.querySelector('[data-headroom]'),
+    {
+      classes: {
+        pinned: 'Header--pinned',
+        unpinned: 'Header--unpinned',
+        top: 'Header--top'
+      }
+    }
+  )
+  headroom.init()
+
+  // init parallaxease
+  new Parallaxease({
+    breakpoint: '768px'
+  })
 })
