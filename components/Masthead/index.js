@@ -1,5 +1,6 @@
 // object of emojis / keywords
 const emojis = require('../../lib/emojis')
+const raf = require('raf')
 
 export default class Masthead {
   constructor(opts) {
@@ -10,16 +11,24 @@ export default class Masthead {
       reccos: $(opts.reccos)
     }
 
+    this.pause = false
+
     // kick off animation
-    setTimeout(() => this.intro(), 1000)
+    raf(() => {
+      setTimeout(() => this.intro(), 1000)
+    })
+
+    document.addEventListener('visibilitychange', this.handleVisibility.bind(this), false)
   }
 
   intro() {
     this.ui.steps.each(function(i) {
       setTimeout(() => {
-        $(this).animate({
-          opacity: 1
-        }, 350)
+        raf(() => {
+          $(this).animate({
+            opacity: 1
+          }, 350)
+        })
       }, i * 200)
     })
 
@@ -60,10 +69,16 @@ export default class Masthead {
   // handle animating in and out
   animate() {
     let animateOpts = this.animateOpts()
-    this.animateIn(animateOpts)
+    raf(() => {
+      this.animateIn(animateOpts)
+    })
+
     setTimeout(() => {
       animateOpts = this.animateOpts()
-      this.animateOut(animateOpts)
+      raf(() => {
+        this.animateOut(animateOpts)
+      })
+
       setTimeout(() => this.restartAnimation(), 1000)
     }, 5000)
   }
@@ -103,7 +118,19 @@ export default class Masthead {
   // grab new emoji / recommendations and restart animation cycle
   restartAnimation(delay = 500) {
     this.setEmojiAndRecommendations()
-    setTimeout(() => this.animate(), delay)
+
+    if (!this.pause) {
+      setTimeout(() => this.animate(), delay)
+    }
+  }
+
+  handleVisibility() {
+    if (document['hidden']) {
+      this.pause = true
+    } else {
+      this.pause = false
+      this.restartAnimation()
+    }
   }
 
   // grab new emoji and reccomendations

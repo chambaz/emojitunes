@@ -50,6 +50,7 @@
     "postcss-import": "^8.2.0",
     "postcss-loader": "^1.1.1",
     "postcss-remify": "^1.0.1",
+    "raf": "^3.3.2",
     "sass-lint": "^1.9.1",
     "sass-loader": "^4.0.2",
     "spotify-web-api-node": "^2.3.5",
