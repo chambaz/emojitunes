@@ -3,7 +3,7 @@
   background: $white;
   border: solid 1px #c7cacd;
   border-radius: 6px;
-  display: none;
+  display: inline-flex;
   height: 40px;
   padding: .75em .625em .625em;
   text-decoration: none;
@@ -15,9 +15,25 @@
   &:visited {
     color: #333;
   }
+}
+
+.Button--large-only {
+  display: none;
 
   @media(min-width: $medium-screen) {
-    display: flex;
+    display: inline-flex;
+  }
+}
+
+.Button--blue {
+  background: $blue;
+  border-color: $blue;
+
+  &,
+  &:hover,
+  &:active,
+  &:visited {
+    color: $white;
   }
 }
 

@@ -8,10 +8,8 @@ export default class Search {
     this.step2 = document.querySelector(opts.step2)
     this.grid = document.querySelector(opts.grid)
     this.reccos = document.querySelector(opts.reccos)
-    this.search = document.querySelector(opts.search)
     this.restart = document.querySelector(opts.restart)
     this.title = document.querySelector(opts.title)
-    this.random = document.querySelector(opts.random)
     this.list = document.createElement('ul')
 
     // fill this.list with li nodes
@@ -23,15 +21,6 @@ export default class Search {
 
     // restart after choosing emoji
     this.restart.addEventListener('click', e => this.reset(e))
-
-    // text input filter emojis
-    this.search.addEventListener('keyup', e => this.filterEmojis(e))
-
-    // random emoji
-    this.random.addEventListener('click', e => this.randomEmoji(e))
-
-    // keyboard nav
-    document.addEventListener('keydown', e => this.keyboardNav(e))
   }
 
   // append li nodes to this.list
@@ -47,19 +36,6 @@ export default class Search {
     child.addEventListener('click', e => this.getRecommendations(e.currentTarget.innerHTML))
 
     this.list.appendChild(child)
-  }
-
-  // filter this.list based on search form value
-  filterEmojis(e) {
-    this.list.querySelectorAll('[data-emoji]').forEach(item => {
-      if (!item.getAttribute('data-emoji').includes(e.currentTarget.value)) {
-        item.classList.add('Emoji-grid__item--hide')
-        item.setAttribute('data-visible', 'false')
-      } else {
-        item.classList.remove('Emoji-grid__item--hide')
-        item.setAttribute('data-visible', 'true')
-      }
-    })
   }
 
   // fade out content and fetch recommendations from API
@@ -117,13 +93,6 @@ export default class Search {
     })
   }
 
-  randomEmoji(e) {
-    e.preventDefault()
-
-    const items = this.list.querySelectorAll('[data-emoji]')
-    this.getRecommendations(items[Math.floor(Math.random() * items.length)].innerHTML)
-  }
-
   // reset back to emoji list
   reset(e) {
     e.preventDefault()
@@ -137,78 +106,5 @@ export default class Search {
         this.step1.style.opacity = 1
       }, 50)
     }, 350)
-  }
-
-  // keyboard navigation for search filed and emoji list
-  keyboardNav(e) {
-    const active = document.activeElement
-    const activeIndex = active.hasAttribute('data-index') ?
-                        Number(active.getAttribute('data-index')) : -1
-
-    switch (e.keyCode) {
-
-    // left / up
-    // focus on previous visible emoji in listfocus on search
-    // if focussed on first emoji then
-    case 37:
-    case 38:
-      e.preventDefault()
-      if (activeIndex === 0) {
-        this.search.focus()
-      } else {
-        const quickPrev = this.list.querySelector(`[data-index="${activeIndex - 1}"`)
-        let slowPrev = false
-
-        if (quickPrev.getAttribute('data-visible') === 'true') {
-          quickPrev.focus()
-          return
-        }
-
-        Array.prototype.slice
-        .call(this.grid.querySelectorAll('[data-visible="true"]'))
-        .reverse()
-        .every(item => {
-          console.log(item, activeIndex)
-          if (Number(item.getAttribute('data-index')) < activeIndex) {
-            item.focus()
-            slowPrev = true
-            return false
-          }
-
-          return true
-        })
-
-        if (!slowPrev) {
-          this.search.focus()
-        }
-      }
-
-      break
-
-    // right / down
-    // focus on next visible emoji in list
-    case 39:
-    case 40:
-      e.preventDefault()
-
-      Array.prototype.slice
-      .call(this.grid.querySelectorAll('[data-visible="true"]'))
-      .every(item => {
-        if (Number(item.getAttribute('data-index')) > activeIndex) {
-          item.focus()
-          return false
-        }
-
-        return true
-      })
-
-      break
-
-    case 13:
-      if (active.hasAttribute('data-emoji')) {
-        this.getRecommendations(active.innerHTML)
-      }
-      break
-    }
   }
 }
