@@ -58,6 +58,10 @@
   }
 }
 
+.Panel--waves-centered {
+  background-image: url('/img/bg-waves-centered.jpg');
+}
+
 .Panel--blue {
   background: $blue-light;
 }
@@ -86,6 +90,14 @@
 
   @media(min-width: $medium-screen) {
     font-size: 2.25em;
+  }
+}
+
+.Panel__title--large {
+  font-size: 2.25em;
+
+  @media(min-width: $medium-screen) {
+    font-size: 3.25em;
   }
 }
 
@@ -157,10 +169,25 @@
 }
 
 .Panel__btns {
+  align-items: center;
   display: flex;
-  justify-content: center;
-}
+  flex-direction: column-reverse;
 
-.Panel__btn:first-child {
-  margin-right: 1.25em;
+  .Panel__btn {
+    margin: 0 0 1.25em;
+  }
+
+  @media(min-width: $medium-screen) {
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: center;
+
+    .Panel__btn {
+      margin: 0;
+    }
+
+    .Panel__btn:first-child {
+      margin-right: .625em;
+    }
+  }
 }
