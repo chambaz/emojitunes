@@ -44,7 +44,7 @@
   font-size: 3em;
   opacity: 0;
 
-  @media(min-width: $medium-screen) {
+  @media(min-width: $large-screen) {
     font-size: 3.625em;
   }
 }

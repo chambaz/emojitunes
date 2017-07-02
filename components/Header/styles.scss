@@ -36,20 +36,19 @@
 }
 
 .Header__btns {
-  display: flex;
+  display: none;
   margin-left: auto;
   margin-right: 1.25em;
-  margin-top: .7em;
+
+
+  @media(min-width: $medium-screen) {
+    display: flex;
+  }
 }
 
 .Header__btn {
-  display: none;
   height: 2.5em;
   width: 8.6875em;
-
-  @media(min-width: $medium-screen) {
-    display: block;
-  }
 }
 
 .Header__btn:first-child {

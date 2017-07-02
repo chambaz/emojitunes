@@ -15,10 +15,8 @@ new EmojiGrid({
   step2: '[data-emoji-grid-step="2"]',
   grid: '[data-emoji-grid]',
   reccos: '[data-emoji-grid-reccos]',
-  search: '[data-emoji-grid-search]',
   restart: '[data-emoji-grid-restart]',
-  title: '[data-emoji-grid-title]',
-  random: '[data-emoji-grid-random]'
+  title: '[data-emoji-grid-title]'
 })
 
 $(function() {
