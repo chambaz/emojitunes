@@ -214,28 +214,18 @@ function getRecommendations(type, emoji) {
       method = 'searchTracks'
     }
 
-    console.log(method)
-
     if (method === 'searchTracks' && Array.isArray(q.playlist)) {
-      console.log('playlist track')
-      console.log(q.playlist[0], q.playlist[1])
-      console.log(items)
+
       // fetch playlist
       spotifyApi.getPlaylist(q.playlist[0], q.playlist[1]).then(data => {
 
-        console.log('data dump')
-        console.log(data.body.tracks.items)
-
         // loop through each track and add object containing artist, title, url
         data.body.tracks.items.forEach(track => {
-          console.log(track)
           items.push({
             url: track.track.external_urls.spotify,
             embed: track.track.uri
           })
         })
-
-        console.log(items)
 
         // resolve promise and return shuffled genres and tracks
         items = _.shuffle(items)
@@ -252,8 +242,6 @@ function getRecommendations(type, emoji) {
       // pick random track
     } else {
       search = sortSearchParams(q)
-
-      console.log(search)
 
       // try fetching recommendations by genre
       spotifyApi[method](search).then(data => {
