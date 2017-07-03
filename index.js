@@ -204,69 +204,118 @@ function getRecommendations(type, emoji) {
 
   // return promise and wait for Spotify API call
   return new Promise(resolve => {
+    let items = []
     let search = ''
+    let method = ''
 
-    if (q.track || q.artist) {
-      if (q.track && !q.artist) {
-        search = `track:"${q.track}"`
-      } else if (q.artist && !q.track) {
-        search = `artist:"${q.artist}"`
-      } else if (q.track && q.artist) {
-        search = `track:"${q.track}" artist:"${q.artist}"`
-      }
+    if (type === 'playlists') {
+      method = 'searchPlaylists'
     } else {
-      if (!q.keyword) {
-        const genreKeys = Object.keys(genres)
-        q = genres[genreKeys[Math.floor(Math.random() * genreKeys.length)]]
-      }
-
-      search = `genre:"${q.genre}"`
-    }
-
-    let method = 'searchPlaylists'
-
-    if (type === 'tracks') {
       method = 'searchTracks'
     }
 
-		// try fetching recommendations by genre
-    spotifyApi[method](search).then(data => {
-      let items = []
+    console.log(method)
 
-      // loop through each track and add object containing artist, title, url
-      data.body[type].items.forEach(track => {
-        items.push({
-          url: track.external_urls.spotify,
-          embed: track.uri
-        })
-      })
+    if (method === 'searchTracks' && Array.isArray(q.playlist)) {
+      console.log('playlist track')
+      console.log(q.playlist[0], q.playlist[1])
+      console.log(items)
+      // fetch playlist
+      spotifyApi.getPlaylist(q.playlist[0], q.playlist[1]).then(data => {
 
-      // if no items found then do keyword search instead
-      if (!items.length) {
-        spotifyApi[method](q.keyword).then(data => {
-          // loop through each track and add object containing artist, title, url
-          data.body[type].items.forEach(track => {
-            items.push({
-              url: track.external_urls.spotify,
-              embed: track.uri
-            })
-          })
+        console.log('data dump')
+        console.log(data.body.tracks.items)
 
-          // resolve promise and return shuffled genres and tracks
-          items = _.shuffle(items)
-          resolve({
-            items
+        // loop through each track and add object containing artist, title, url
+        data.body.tracks.items.forEach(track => {
+          console.log(track)
+          items.push({
+            url: track.track.external_urls.spotify,
+            embed: track.track.uri
           })
         })
 
-      // otherwise return genre reccos
-      } else {
+        console.log(items)
+
         // resolve promise and return shuffled genres and tracks
         items = _.shuffle(items)
         resolve({
           items
         })
-      }
-    })
+
+      }, err => {
+        resolve({
+          items
+        })
+      })
+
+      // pick random track
+    } else {
+      search = sortSearchParams(q)
+
+      console.log(search)
+
+      // try fetching recommendations by genre
+      spotifyApi[method](search).then(data => {
+
+        // loop through each track and add object containing artist, title, url
+        data.body[type].items.forEach(track => {
+          items.push({
+            url: track.external_urls.spotify,
+            embed: track.uri
+          })
+        })
+
+        // if no items found then do keyword search instead
+        if (!items.length) {
+          spotifyApi[method](q.keyword).then(data => {
+            // loop through each track and add object containing artist, title, url
+            data.body[type].items.forEach(track => {
+              items.push({
+                url: track.external_urls.spotify,
+                embed: track.uri
+              })
+            })
+
+            // resolve promise and return shuffled genres and tracks
+            items = _.shuffle(items)
+            resolve({
+              items
+            })
+          })
+
+        // otherwise return genre reccos
+        } else {
+          // resolve promise and return shuffled genres and tracks
+          items = _.shuffle(items)
+          resolve({
+            items
+          })
+        }
+      })
+    }
   })
+}
+
+function sortSearchParams(q) {
+  let search = ''
+
+  if (q.track || q.artist) {
+    if (q.track && !q.artist) {
+      search = `track:"${q.track}"`
+    } else if (q.artist && !q.track) {
+      search = `artist:"${q.artist}"`
+    } else if (q.track && q.artist) {
+      search = `track:"${q.track}" artist:"${q.artist}"`
+    }
+  } else {
+    if (!q.keyword) {
+      const genreKeys = Object.keys(genres)
+      q = genres[genreKeys[Math.floor(Math.random() * genreKeys.length)]]
+    }
+
+    search = `genre:"${q.genre}"`
+  }
+
+  return search
 }
