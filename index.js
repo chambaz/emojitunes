@@ -192,15 +192,8 @@ server.listen(8080, () => {
   console.log('🤘 Server is running 🤘')
 })
 
-function getRecommendations(type, emoji) {
-  let q = {}
-
-  // loop through emojis object
-  _.forOwn(genres, (emoData, emo) => {
-    if (emoji === emo) {
-      q = emoData
-    }
-  })
+function getRecommendations(type, emo) {
+  let q = fetchEmojiData(emo)
 
   // return promise and wait for Spotify API call
   return new Promise(resolve => {
@@ -306,4 +299,23 @@ function sortSearchParams(q) {
   }
 
   return search
+}
+
+// match emoji in genres list
+// if alias then run function again to get match
+function fetchEmojiData(emo) {
+  let data = {}
+  _.forOwn(genres, (emoData, em) => {
+    if (emo === em) {
+      if (typeof emoData !== 'object') {
+        data = fetchEmojiData(emoData)
+      } else {
+        data = emoData
+      }
+
+      return false
+    }
+  })
+
+  return data
 }
