@@ -28,6 +28,7 @@ const _ = {
 
 // object of emojis / keywords
 const genres = require('./lib/genres')
+const aliases = require('./lib/aliases')
 
 // possible response messages
 const msgs = require('./lib/msgs')
@@ -313,18 +314,16 @@ function sortSearchParams(q) {
 // match emoji in genres list
 function fetchEmojiData(emo) {
   let data = null
-  _.forOwn(genres, (emoData, em) => {
-    if (emo === em) {
-      // if alias then run function again to get match
-      if (typeof emoData !== 'object') {
-        data = fetchEmojiData(emoData)
-      } else {
-        data = emoData
-      }
 
-      return false
-    }
-  })
+  // first check if emoji is an alias
+  data = aliases[emo]
+
+  // pick emoji object from list
+  if (data) {
+    data = genres[data]
+  } else {
+    data = genres[emo]
+  }
 
   // if none found then pick random emoji
   if (!data) {
