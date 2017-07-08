@@ -71,10 +71,13 @@ routes.add('GET /api/recommendations/{type}/{emoji}', (req, res) => {
     return
   }
 
-  getRecommendations(req.params.type, foundEmoji).then(
-		recommendations => res.end(JSON.stringify(recommendations)),
-		error => res.end(JSON.stringify(error))
-	)
+  getRecommendations(req.params.type, foundEmoji)
+    .then(
+      recommendations => res.end(JSON.stringify(recommendations)),
+      error => res.end(JSON.stringify(error)))
+    .catch(() => {
+      console.log('Error getting reccos')
+    })
 })
 
 // get recommendations-browser API route
@@ -135,6 +138,8 @@ routes.add('GET /api/recommendations-browser/{type}/{emoji}', (req, res) => {
   }, error => {
     console.log('Error fetching recommendations', error)
     res.end('No genres match emoji')
+  }).catch(() => {
+    console.log('Error fetching recommendations')
   })
 })
 
@@ -194,9 +199,10 @@ server.listen(8080, () => {
 
 function getRecommendations(type, emo) {
   let q = fetchEmojiData(emo)
+  console.log(q)
 
   // return promise and wait for Spotify API call
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     let items = []
     let search = ''
     let method = ''
@@ -263,6 +269,10 @@ function getRecommendations(type, emo) {
             resolve({
               items
             })
+          }, err => {
+            resolve({
+              items
+            })
           })
 
         // otherwise return genre reccos
@@ -273,6 +283,10 @@ function getRecommendations(type, emo) {
             items
           })
         }
+      }, err => {
+        resolve({
+          items
+        })
       })
     }
   })
@@ -290,11 +304,6 @@ function sortSearchParams(q) {
       search = `track:"${q.track}" artist:"${q.artist}"`
     }
   } else {
-    if (!q.keyword) {
-      const genreKeys = Object.keys(genres)
-      q = genres[genreKeys[Math.floor(Math.random() * genreKeys.length)]]
-    }
-
     search = `genre:"${q.genre}"`
   }
 
@@ -302,11 +311,11 @@ function sortSearchParams(q) {
 }
 
 // match emoji in genres list
-// if alias then run function again to get match
 function fetchEmojiData(emo) {
-  let data = {}
+  let data = null
   _.forOwn(genres, (emoData, em) => {
     if (emo === em) {
+      // if alias then run function again to get match
       if (typeof emoData !== 'object') {
         data = fetchEmojiData(emoData)
       } else {
@@ -316,6 +325,12 @@ function fetchEmojiData(emo) {
       return false
     }
   })
+
+  // if none found then pick random emoji
+  if (!data) {
+    const genreKeys = Object.keys(genres)
+    return fetchEmojiData(genreKeys[Math.floor(Math.random() * genreKeys.length)])
+  }
 
   return data
 }
