@@ -25,6 +25,7 @@
 
 .Emoji-grid__inner--hide {
   opacity: 0;
+  z-index: -1;
 }
 
 .Emoji-grid__list {
@@ -42,7 +43,10 @@
   font-size: 1.5em;
   padding: .5em;
   text-align: center;
+  transform: translateZ(0);
+  transition: .3s;
   width: 14%;
+  z-index: 0;
 
   @media(min-width: $medium-screen) {
     width: 10%;
@@ -50,6 +54,10 @@
 
   @media(min-width: $large-screen) {
     width: 8%;
+  }
+
+  &:hover {
+    transform: scale(1.2) translateZ(0);
   }
 }
 
