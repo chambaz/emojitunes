@@ -104,7 +104,7 @@ export default class Search {
       this.step2.style.display = 'none'
       this.step2.style.zIndex = -1
       this.step1.style.display = 'block'
-      this.step2.style.zIndex = 0
+      this.step1.style.zIndex = 0
 
       setTimeout(() => {
         this.step1.style.opacity = 1
