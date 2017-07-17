@@ -55,6 +55,9 @@ routes.add('GET /api/recommendations/{type}/{emoji}', (req, res) => {
     }))
   }
 
+
+  // TODO: write emoji to file with timestamp
+
   const decodedEmojiParam = decodeURIComponent(req.params.emoji)
   let foundEmoji = false
 
