@@ -11,6 +11,19 @@ export default class Masthead {
       reccos: $(opts.reccos)
     }
 
+    this.emojis = [
+      ['the_horns', '🤘'],
+      ['fire', '🔥'],
+      ['flag-gb', '🇬🇧'],
+      ['peach', '🍑'],
+      ['robot', '🤖'],
+      ['heart', '❤️'],
+      ['film', '🎬'],
+      ['guitar', '🎸']
+    ]
+
+    this.currentEmoji = false
+
     this.pause = false
 
     // kick off animation
@@ -135,14 +148,22 @@ export default class Masthead {
 
   // grab new emoji and reccomendations
   setEmojiAndRecommendations() {
-    const randomEmoji = this.randomEmoji(emojis.availableEmojis())
+    const randomEmoji = this.pickEmoji(this.emojis)
     this.ui.emoji.html(randomEmoji[1])
     this.getRecommendations(randomEmoji[1])
   }
 
-  // pick random emoji
-  randomEmoji(emojis) {
-    return emojis[Math.floor(Math.random() * (emojis.length -1))]
+  // pick random emoji and then cycle through
+  pickEmoji() {
+    if (this.currentEmoji === false) {
+      this.currentEmoji = Math.floor(Math.random() * (this.emojis.length -1))
+    } else if (this.currentEmoji === (this.emojis.length - 1)) {
+      this.currentEmoji = 0
+    } else {
+      this.currentEmoji++
+    }
+
+    return this.emojis[this.currentEmoji]
   }
 
   // get recommendations from API, build markup, add to DOM
